@@ -1,21 +1,22 @@
+# StackIt – A Minimal Q&A Forum Platform
+
+[![Next.js](https://img.shields.io/badge/Next.js-15.3.5-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0.0-blue?logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.17.0-green?logo=mongodb)](https://www.mongodb.com/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Clerk](https://img.shields.io/badge/Clerk-Auth-purple?logo=clerk)](https://clerk.com/)
+
+
 ## 🧩 Problem Statement (ID: 2)
 
-Design and develop **StackIt – A minimal Question-and-Answer platform** that supports collaborative learning and structured knowledge sharing. The platform should be simple, intuitive, and focused on the core experience of asking and answering questions within a community.
+Design and develop **StackIt**, a minimal Question-and-Answer platform that supports collaborative learning and structured knowledge sharing. The platform should be simple, intuitive, and focused on the core experience of asking and answering questions within a community.
 
 The system must:
 - Allow users to ask and answer questions using a rich text editor.
 - Implement voting, tagging, and answer acceptance features.
 - Include user roles (Guest, User, Admin) with appropriate permissions.
 - Support notifications and moderation controls for admins.
-
-
-## 👥 Team Details
-
-| Role     | Name              | Email                          | GitHub                          |
-|----------|-------------------|--------------------------------|---------------------------------|
-| Leader   | Garima            | sushri4tech@gmail.com          | [GitHub Profile](https://github.com/techy4shri)      |
-| Member   | Swati Sharma      | 25sharmswati@gmail.com         | [GitHub Profile](https://github.com/swatified)      |
-| Member   | Priyanshu Aggarwal| priyanshujindal101@gmail.com   | [GitHub Profile](https://github.com/jindalpriyanshu101)      |
 
 
 ---
@@ -86,17 +87,104 @@ Admins have access to moderation and analytics tools:
 
 ## ⚙️ Tech Stack
 
-- **Frontend**: TBA Later
-- **Backend**: TBA Later
-- **Database**: TBA Later
-- **Text Editor**: TBA Later
-- **Authentication**: TBA Later
+- **Frontend**: Next.js 15.3.5, React 19, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes (Serverless)
+- **Database**: MongoDB
+- **Text Editor**: TipTap with rich text extensions
+- **Authentication**: Clerk
+- **UI Components**: Radix UI primitives
+- **Styling**: Tailwind CSS with custom theme
+- **Animation**: Framer Motion
+- **Icons**: Lucide React
 
 ---
+
+## 📁 Project Structure
+
+```
+StackIt/
+├── app/                      # Next.js app directory
+│   ├── admin/               # Admin dashboard pages
+│   ├── api/                 # API routes
+│   ├── ask/                 # Question creation page
+│   ├── question/           # Question detail pages
+│   ├── search/             # Search results page
+│   ├── sign-in/            # Authentication pages
+│   └── sign-up/            # User registration pages
+├── components/              # React components
+│   ├── editor/             # Rich text editor components
+│   └── ui/                 # Reusable UI components
+├── lib/                    # Utility functions and types
+└── public/                 # Static assets
+```
 
 ## 🛠️ Setup Instructions
 
-_This section will include steps to install, configure, and run the project once development begins._
+### Prerequisites
+
+- Node.js 18+ [[Download](https://nodejs.org)]
+- MongoDB database [[MongoDB Atlas](https://www.mongodb.com/atlas/database)]
+- Clerk account for authentication [[Sign up](https://clerk.com)]
+
+<!-- ### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# MongoDB
+MONGODB_URI=your_mongodb_connection_string
+
+# Clerk Auth
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+
+# App URL
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+-->
+### Installation
+
+1. Fork the [techy4shri/stackit](https://github.com/techy4shri/stackit) repository:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/techy4shri/stackit.git
+   cd stackit
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+### Development Commands
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+
 
 ---
+
+## 👥 Team Details
+
+| Role      | GitHub |
+|-----------|--------|
+| Team Lead | [Garima](https://github.com/techy4shri) |
+| Member    | [Swati Sharma](https://github.com/swatified) |
+| Member    | [Priyanshu Aggarwal](https://github.com/jindalpriyanshu101) |
 
