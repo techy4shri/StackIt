@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 interface VoteState {
   hasVoted: boolean
@@ -11,6 +12,7 @@ interface VoteState {
 
 export function useVoting(targetId: string, targetType: 'question' | 'answer', initialVotes: number) {
   const { user } = useUser()
+  const router = useRouter()
   const [voteState, setVoteState] = useState<VoteState>({
     hasVoted: false,
     voteType: null,
@@ -42,7 +44,19 @@ export function useVoting(targetId: string, targetType: 'question' | 'answer', i
   }, [user, targetId, targetType])
 
   const vote = async (voteType: 'up' | 'down') => {
-    if (!user || loading) return
+    // Redirect guests to sign-in page
+    if (!user) {
+      router.push('/sign-in')
+      return
+    }
+
+    // Prevent voting if user already voted
+    if (voteState.hasVoted) {
+      alert('You have already voted on this item.')
+      return
+    }
+
+    if (loading) return
 
     setLoading(true)
     try {
@@ -55,31 +69,12 @@ export function useVoting(targetId: string, targetType: 'question' | 'answer', i
       })
 
       if (response.ok) {
-        // Update local state based on voting logic
-        setVoteState(prev => {
-          let newVotes = prev.votes
-          let newVoteType: 'up' | 'down' | null = voteType
-          let newHasVoted = true
-
-          if (prev.hasVoted && prev.voteType === voteType) {
-            // Remove vote if same type
-            newVotes += voteType === 'up' ? -1 : 1
-            newVoteType = null
-            newHasVoted = false
-          } else if (prev.hasVoted && prev.voteType !== voteType) {
-            // Change vote type
-            newVotes += voteType === 'up' ? 2 : -2
-          } else {
-            // New vote
-            newVotes += voteType === 'up' ? 1 : -1
-          }
-
-          return {
-            hasVoted: newHasVoted,
-            voteType: newVoteType,
-            votes: newVotes
-          }
-        })
+        // Update local state - one vote per user, no toggling allowed
+        setVoteState(prev => ({
+          hasVoted: true,
+          voteType: voteType,
+          votes: prev.votes + (voteType === 'up' ? 1 : -1)
+        }))
       } else {
         const error = await response.json()
         alert(error.error || 'Failed to vote')

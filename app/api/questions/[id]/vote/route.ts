@@ -35,45 +35,28 @@ export async function POST(
       targetType: 'question',
     })
 
+    // Prevent multiple votes per user
     if (existingVote) {
-      if (existingVote.voteType === voteType) {
-        // Remove vote if same type
-        await db.collection('votes').deleteOne({ _id: existingVote._id })
-        
-        const increment = voteType === 'up' ? -1 : 1
-        await db.collection('questions').updateOne(
-          { _id: new ObjectId(id) },
-          { $inc: { votes: increment } }
-        )
-      } else {
-        // Update vote type
-        await db.collection('votes').updateOne(
-          { _id: existingVote._id },
-          { $set: { voteType } }
-        )
-        
-        const increment = voteType === 'up' ? 2 : -2
-        await db.collection('questions').updateOne(
-          { _id: new ObjectId(id) },
-          { $inc: { votes: increment } }
-        )
-      }
-    } else {
-      // Create new vote
-      await db.collection('votes').insertOne({
-        userId,
-        targetId: id,
-        targetType: 'question',
-        voteType,
-        createdAt: new Date(),
-      })
-      
-      const increment = voteType === 'up' ? 1 : -1
-      await db.collection('questions').updateOne(
-        { _id: new ObjectId(id) },
-        { $inc: { votes: increment } }
+      return NextResponse.json(
+        { error: 'You have already voted on this question' },
+        { status: 400 }
       )
     }
+
+    // Create new vote (only one vote allowed per user)
+    await db.collection('votes').insertOne({
+      userId,
+      targetId: id,
+      targetType: 'question',
+      voteType,
+      createdAt: new Date(),
+    })
+    
+    const increment = voteType === 'up' ? 1 : -1
+    await db.collection('questions').updateOne(
+      { _id: new ObjectId(id) },
+      { $inc: { votes: increment } }
+    )
     
     return NextResponse.json({ success: true })
   } catch (error) {

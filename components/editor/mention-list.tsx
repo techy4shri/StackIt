@@ -9,10 +9,10 @@ interface User {
 
 interface MentionListProps {
   items: User[]
-  command: (item: { id: string; label: string }) => void
+  command: (_item: { id: string; label: string }) => void
 }
 
-const MentionList = forwardRef<{onKeyDown: (props: any) => boolean}, MentionListProps>((props, ref) => {
+const MentionList = forwardRef<{onKeyDown: (_props: any) => boolean}, MentionListProps>((props, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   const selectItem = (index: number) => {
