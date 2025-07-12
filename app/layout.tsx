@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'StackIt - Q&A Platform',
-  description: 'A minimal question and answer platform for collaborative learning',
+  description: 'A minimal question and answer platform',
 }
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <Navbar />
+          <Navbar />  {/* ← Add this */}
           <main className="min-h-screen bg-background">
             {children}
           </main>
