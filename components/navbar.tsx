@@ -6,11 +6,13 @@ import { useAuth, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { Search, Plus, Trophy } from 'lucide-react'
-import NotificationDropdown from '@/components/notification-dropdown' 
+import { Search, Plus, Trophy, Shield } from 'lucide-react'
+import NotificationDropdown from '@/components/notification-dropdown'
+import { useUserRole } from '@/hooks/useUserRole' 
 
 export default function Navbar() {
   const { isSignedIn } = useAuth()
+  const { isAdmin } = useUserRole()
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleSearch = (e: React.FormEvent) => {
@@ -41,6 +43,12 @@ export default function Navbar() {
               <Link href="/pages/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
                 Dashboard
               </Link>
+              {isAdmin && (
+                <Link href="/pages/admin" className="text-red-600 hover:text-red-700 transition-colors flex items-center space-x-1">
+                  <Shield className="h-4 w-4" />
+                  <span>Admin</span>
+                </Link>
+              )}
             </div>
           )}
           

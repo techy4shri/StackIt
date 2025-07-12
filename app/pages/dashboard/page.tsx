@@ -12,12 +12,15 @@ import {
   TrendingUp,
   BookOpen,
   Star,
-  Heart
+  Heart,
+  Shield
 } from 'lucide-react'
+import { useUserRole } from '@/hooks/useUserRole'
 
 export default function DashboardPage() {
   const { isSignedIn, isLoaded } = useAuth()
   const { user } = useUser()
+  const { role, isAdmin, permissions } = useUserRole()
   const [stats, setStats] = useState({
     questionsCount: 0,
     answersCount: 0,
@@ -38,9 +41,9 @@ export default function DashboardPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
           <p className="mt-2 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -49,7 +52,7 @@ export default function DashboardPage() {
 
   if (!isSignedIn || !user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[400px]">
         <Card className="p-8 text-center">
           <CardContent>
             <h2 className="text-2xl font-bold mb-4">Please Sign In</h2>
@@ -64,18 +67,26 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="mb-8">
           <div className="flex items-center space-x-4 mb-4">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+            <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
               {user.firstName?.[0] || user.emailAddresses[0]?.emailAddress[0] || 'U'}
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                Welcome back, {user.firstName || 'Developer'}!
-              </h1>
+            <div className="flex-1">
+              <div className="flex items-center space-x-3">
+                <h1 className="text-3xl font-bold text-gray-900">
+                  Welcome back, {user.firstName || 'Developer'}!
+                </h1>
+                <Badge 
+                  variant={isAdmin ? "destructive" : "secondary"} 
+                  className={`${isAdmin ? 'bg-red-100 text-red-800' : ''} capitalize`}
+                >
+                  {isAdmin && <Shield className="h-3 w-3 mr-1" />}
+                  {role}
+                </Badge>
+              </div>
               <p className="text-gray-600">
                 Member since {new Date(user.createdAt || Date.now()).toLocaleDateString()}
               </p>
@@ -166,6 +177,7 @@ export default function DashboardPage() {
                 className="w-full justify-start" 
                 variant="outline"
                 onClick={() => window.location.href = '/ask'}
+                disabled={!permissions.canPostQuestions}
               >
                 <MessageSquare className="h-4 w-4 mr-2" />
                 Ask a Question
@@ -178,6 +190,16 @@ export default function DashboardPage() {
                 <BookOpen className="h-4 w-4 mr-2" />
                 Browse Questions
               </Button>
+              {isAdmin && (
+                <Button 
+                  className="w-full justify-start bg-red-50 hover:bg-red-100 text-red-700 border-red-200" 
+                  variant="outline"
+                  onClick={() => window.location.href = '/pages/admin'}
+                >
+                  <Shield className="h-4 w-4 mr-2" />
+                  Admin Panel
+                </Button>
+              )}
             </CardContent>
           </Card>
 
@@ -231,6 +253,5 @@ export default function DashboardPage() {
           </Card>
         </div>
       </div>
-    </div>
   )
 }

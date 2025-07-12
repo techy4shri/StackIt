@@ -206,7 +206,6 @@ export default function QuestionPage({ params }: QuestionPageProps) {
             key={answer._id?.toString()}
             answer={answer}
             questionAuthorId={question.authorId}
-            onVote={handleVoteAnswer}
             onAccept={handleAcceptAnswer}
           />
         ))}

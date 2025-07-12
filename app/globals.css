@@ -410,4 +410,18 @@
   .tippy-content {
     padding: 0;
   }
+
+  /* Rich Text Editor Resizable Styles */
+  .ProseMirror {
+    outline: none;
+    min-height: 200px;
+    resize: vertical;
+    overflow: auto;
+    padding: 1rem;
+    border-top: 1px solid hsl(var(--border));
+  }
+  
+  .ProseMirror:focus {
+    outline: none;
+  }
 }

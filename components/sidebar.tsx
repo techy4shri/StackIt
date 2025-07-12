@@ -7,9 +7,6 @@ import {
   Home, 
   MessageCircle, 
   Tags, 
-  Users, 
-  Trophy, 
-  BookOpen,
   Star,
   TrendingUp,
   Menu,
@@ -17,12 +14,9 @@ import {
 } from 'lucide-react'
 
 const navigation = [
-  { name: 'Home', href: '/', icon: Home },
-  { name: 'Questions', href: '/questions', icon: MessageCircle },
-  { name: 'Tags', href: '/tags', icon: Tags },
-  { name: 'Users', href: '/users', icon: Users },
-  { name: 'Companies', href: '/companies', icon: Trophy },
-  { name: 'Stack Overflow for Teams', href: '/teams', icon: BookOpen },
+  { name: 'Home', href: '/pages/homepage', icon: Home },
+  { name: 'Questions', href: '/pages/questions', icon: MessageCircle },
+  { name: 'Tags', href: '/pages/tags', icon: Tags },
 ]
 
 const watching = [

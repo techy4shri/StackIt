@@ -23,13 +23,13 @@ const features = [
     icon: Brain,
     title: "Smart Q&A System",
     description: "Get answers from experts and fellow developers in your field",
-    color: "bg-blue-500"
+    color: "bg-orange-500"
   },
   {
     icon: Users,
     title: "Growing Community",
     description: "Join thousands of developers sharing knowledge and experiences",
-    color: "bg-green-500"
+    color: "bg-amber-500"
   },
   {
     icon: Zap,
@@ -47,13 +47,13 @@ const features = [
     icon: Star,
     title: "Reputation System",
     description: "Build your reputation by helping others and sharing knowledge",
-    color: "bg-purple-500"
+    color: "bg-orange-600"
   },
   {
     icon: Code,
     title: "Code Snippets",
     description: "Share and discuss code with syntax highlighting and formatting",
-    color: "bg-indigo-500"
+    color: "bg-amber-600"
   }
 ]
 
@@ -91,12 +91,12 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-200 rounded-full opacity-20 animate-pulse animation-delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-indigo-200 rounded-full opacity-30 animate-bounce animation-delay-2000"></div>
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-200 rounded-full opacity-20 animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-amber-200 rounded-full opacity-20 animate-pulse animation-delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-yellow-200 rounded-full opacity-30 animate-bounce animation-delay-2000"></div>
         </div>
 
         <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -104,7 +104,7 @@ export default function HomePage() {
           <div className="text-center lg:text-left space-y-8">
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-7xl font-bold">
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent animate-gradient-x">
+                <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent animate-gradient-x">
                   StackIt
                 </span>
               </h1>
@@ -115,13 +115,13 @@ export default function HomePage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link href="/pages/auth">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <Button size="lg" className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-8 py-3 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   Get Started
                   <Rocket className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/pages/questions">
-                <Button variant="outline" size="lg" className="px-8 py-3 text-lg font-medium rounded-xl border-2 border-indigo-300 hover:border-indigo-500 transition-all duration-300">
+                <Button variant="outline" size="lg" className="px-8 py-3 text-lg font-medium rounded-xl border-2 border-orange-300 hover:border-orange-500 transition-all duration-300">
                   Explore Questions
                   <BookOpen className="ml-2 h-5 w-5" />
                 </Button>
@@ -151,7 +151,7 @@ export default function HomePage() {
                 <Card 
                   key={index}
                   className={`p-4 transform transition-all duration-500 hover:scale-105 ${
-                    currentFeature === index ? 'ring-2 ring-indigo-400 shadow-xl' : ''
+                    currentFeature === index ? 'ring-2 ring-orange-400 shadow-xl' : ''
                   }`}
                 >
                   <CardContent className="p-0 text-center space-y-2">
@@ -182,7 +182,7 @@ export default function HomePage() {
             {features.map((feature, index) => (
               <Card 
                 key={index}
-                className="p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-2 hover:border-indigo-200"
+                className="p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-2 hover:border-orange-200"
               >
                 <CardContent className="p-0 space-y-4">
                   <div className={`w-16 h-16 ${feature.color} rounded-2xl flex items-center justify-center mx-auto`}>
@@ -198,7 +198,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50">
+      <section className="py-20 bg-gradient-to-r from-orange-50 to-amber-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">What Our Community Says</h2>
@@ -209,7 +209,7 @@ export default function HomePage() {
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="p-6 text-center hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-0 space-y-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto text-white font-bold text-lg">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center mx-auto text-white font-bold text-lg">
                     {testimonial.avatar}
                   </div>
                   <p className="text-gray-700 italic">&ldquo;{testimonial.content}&rdquo;</p>
@@ -225,7 +225,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-orange-600 to-amber-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Join the Community?</h2>
           <p className="text-xl mb-8 opacity-90">
@@ -233,13 +233,13 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/pages/auth">
-              <Button size="lg" variant="secondary" className="px-8 py-3 text-lg font-medium bg-white text-indigo-600 hover:bg-gray-100">
+              <Button size="lg" variant="secondary" className="px-8 py-3 text-lg font-medium bg-white text-orange-600 hover:bg-gray-100">
                 Sign Up Now
                 <Target className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/pages/questions">
-              <Button size="lg" variant="outline" className="px-8 py-3 text-lg font-medium border-white text-white hover:bg-white hover:text-indigo-600">
+              <Button size="lg" variant="outline" className="px-8 py-3 text-lg font-medium border-white text-white hover:bg-white hover:text-orange-600">
                 Browse Questions
                 <Lightbulb className="ml-2 h-5 w-5" />
               </Button>
@@ -253,7 +253,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
                 StackIt
               </h3>
               <p className="text-gray-400">
@@ -275,6 +275,7 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/pages/questions" className="hover:text-white transition-colors">Questions</Link></li>
+                <li><Link href="/pages/tags" className="hover:text-white transition-colors">Tags</Link></li>
                 <li><Link href="/ask" className="hover:text-white transition-colors">Ask Question</Link></li>
                 <li><Link href="/search" className="hover:text-white transition-colors">Search</Link></li>
               </ul>

@@ -151,7 +151,7 @@ export default function AskQuestionPage() {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="StackIt-gradient text-white btn-modern px-8 py-3 text-base font-semibold"
+                className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-8 py-3 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 {isSubmitting ? (
                   <>
