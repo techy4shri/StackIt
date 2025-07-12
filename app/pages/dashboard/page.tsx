@@ -80,13 +80,15 @@ export default function DashboardPage() {
                 <h1 className="text-3xl font-bold text-gray-900">
                   Welcome back, {user.firstName || 'Developer'}!
                 </h1>
-                <Badge 
-                  variant={isAdmin ? "destructive" : "secondary"} 
-                  className={`${isAdmin ? 'bg-red-100 text-red-800' : ''} capitalize`}
-                >
-                  {isAdmin && <Shield className="h-3 w-3 mr-1" />}
-                  {role}
-                </Badge>
+                {isAdmin && (
+                  <Badge 
+                    variant="destructive" 
+                    className="bg-red-100 text-red-800 capitalize"
+                  >
+                    <Shield className="h-3 w-3 mr-1" />
+                    Admin
+                  </Badge>
+                )}
               </div>
               <p className="text-gray-600">
                 Member since {new Date(user.createdAt || Date.now()).toLocaleDateString()}
