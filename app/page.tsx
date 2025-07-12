@@ -7,9 +7,16 @@ import { Plus, Filter, TrendingUp } from 'lucide-react'
 
 async function getQuestions(): Promise<Question[]> {
   try {
+    // Skip fetching during build if no database connection
+    if (process.env.NODE_ENV === 'production' && !process.env.MONGODB_URI) {
+      return []
+    }
+    
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
     const response = await fetch(`${baseUrl}/api/questions`, {
-      next: { revalidate: 60 } // Revalidate every 60 seconds
+      next: { revalidate: 60 },
+      // Add timeout to prevent hanging during build
+      signal: AbortSignal.timeout(5000)
     })
     if (!response.ok) return []
     const data = await response.json()

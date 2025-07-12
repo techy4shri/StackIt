@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactRenderer } from '@tiptap/react'
 import tippy, { Instance as TippyInstance } from 'tippy.js'
 import { MentionList } from '../editor/mention-list'
 
-export default {
+const MentionSuggestion = {
   items: async ({ query }: { query: string }) => {
     if (!query) return []
     
@@ -87,3 +88,5 @@ export default {
     }
   },
 }
+
+export default MentionSuggestion

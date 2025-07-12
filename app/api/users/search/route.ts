@@ -13,9 +13,6 @@ export async function GET(request: NextRequest) {
     const client = await clientPromise
     const db = client.db('stackit')
     
-    // Search for users by username or name
-    // In a real app, you'd have a users collection with profile data
-    // For now, we'll get users from questions/answers
     const pipeline = [
       {
         $match: {
@@ -29,7 +26,7 @@ export async function GET(request: NextRequest) {
         $group: {
           _id: '$author',
           username: { $first: '$author' },
-          name: { $first: '$author' } // In production, you'd have separate name field
+          name: { $first: '$author' }
         }
       },
       {

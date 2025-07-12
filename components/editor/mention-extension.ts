@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { MentionNodeView } from './mention-node-view'
@@ -52,9 +53,9 @@ export const Mention = Node.create<MentionOptions>({
 
           window.getSelection()?.collapseToEnd()
         },
-        allow: ({ state, range }: any) => {
-          const $from = state.selection.$from
-          const type = state.schema.nodes[this.name]
+        allow: ({ state }: any) => {
+          const $from = (state as any).selection.$from
+          const type = (state as any).schema.nodes[this.name]
           const allow = !!$from.parent.type.contentMatch.matchType(type)
 
           if (!allow) {
