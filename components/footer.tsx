@@ -6,78 +6,89 @@ export default function Footer() {
     <footer className="bg-background border-t border-border mt-auto">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="py-4 sm:py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            {/* Brand Section */}
-            <div className="flex items-center space-x-2">
-              <div className="StackIt-gradient flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg text-white font-bold text-sm sm:text-base">
-                S
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            {/* Left side - Logo and description */}
+            <div className="flex flex-col items-center sm:items-start">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="StackIt-gradient flex h-6 w-6 items-center justify-center rounded-lg text-white font-bold text-sm">
+                  S
+                </div>
+                <span className="font-semibold text-foreground">StackIt</span>
               </div>
-              <span className="text-base sm:text-lg font-bold text-foreground">StackIt</span>
+              <p className="text-xs text-muted-foreground text-center sm:text-left">
+                A modern Q&A platform for developers
+              </p>
             </div>
 
-            {/* Navigation Links */}
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
-              <Link href="/questions" className="hover:text-foreground transition-colors">
-                Questions
+            {/* Center - Links */}
+            <div className="flex flex-wrap justify-center gap-4 text-xs">
+              <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+                Home
               </Link>
-              <Link href="/ask" className="hover:text-foreground transition-colors">
-                Ask
+              <Link href="/ask" className="text-muted-foreground hover:text-foreground transition-colors">
+                Ask Question
               </Link>
-              <Link href="/search" className="hover:text-foreground transition-colors">
+              <Link href="/search" className="text-muted-foreground hover:text-foreground transition-colors">
                 Search
               </Link>
-              <Link href="/tags" className="hover:text-foreground transition-colors">
-                Tags
-              </Link>
             </div>
 
-            {/* Social Links */}
-            <div className="flex space-x-3 sm:space-x-4">
-              <Link 
-                href="https://github.com/techy4shri/StackIt" 
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="GitHub"
+            {/* Right side - Social links */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://github.com/techy4shri/StackIt"
                 target="_blank"
                 rel="noopener noreferrer"
-              >
-                <Github className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-              <Link 
-                href="https://www.linkedin.com/in/garima-shrivastav/" 
                 className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="LinkedIn"
+                aria-label="GitHub Repository"
+              >
+                <Github className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/sushri-sangita-jena-331940252/"
                 target="_blank"
                 rel="noopener noreferrer"
-              >
-                <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-              <Link 
-                href="mailto:sushri4tech@gmail.com" 
                 className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Email"
+                aria-label="LinkedIn Profile"
               >
-                <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href="mailto:sushri4tech@gmail.com"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Email Contact"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
+              <a
+                href="https://github.com/sponsors/techy4shri"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-red-500 hover:text-red-600 transition-colors"
+                aria-label="Sponsor on GitHub"
+              >
+                <Heart className="h-4 w-4" />
+              </a>
             </div>
           </div>
 
-          {/* Copyright */}
-          <div className="border-t border-border/50 pt-3 sm:pt-4 mt-3 sm:mt-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm text-muted-foreground">
-              <p>&copy; 2025 StackIt. All rights reserved.</p>
-              <div className="flex items-center gap-1">
-                <span>Made with</span>
-                <Link 
-                  href="https://github.com/sponsors/techy4shri"
-                  className="text-red-500 hover:text-red-600 transition-colors"
-                  aria-label="Sponsor this project"
+          {/* Bottom row */}
+          <div className="mt-4 pt-4 border-t border-border">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
+              <p>
+                © {new Date().getFullYear()} StackIt. Built with Next.js and TypeScript.
+              </p>
+              <p className="flex items-center gap-1">
+                Made with <Heart className="h-3 w-3 text-red-500" /> by{' '}
+                <a
+                  href="https://github.com/techy4shri"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
                 >
-                  <Heart className="h-3 w-3 sm:h-4 sm:w-4 fill-current hover:scale-110 transition-transform" />
-                </Link>
-                <span>by developers, for developers</span>
-              </div>
+                  techy4shri
+                </a>
+              </p>
             </div>
           </div>
         </div>

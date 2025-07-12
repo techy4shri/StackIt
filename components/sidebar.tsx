@@ -262,6 +262,41 @@ export default function Sidebar() {
             </div>
           </>
         )}
+
+        {/* Collapsed Icons for Popular Tags and Hot Questions */}
+        {isCollapsed && (
+          <div className="mt-4 space-y-6">
+            {/* Popular Tags Icon */}
+            <div className="flex justify-center">
+              <Link
+                href="/tags"
+                className="p-3 rounded-lg hover:bg-accent transition-colors"
+                title="Popular Tags"
+              >
+                <Star className="h-5 w-5 text-yellow-500" />
+              </Link>
+            </div>
+            
+            {/* Hot Questions Icon */}
+            <div className="flex justify-center">
+              <Link
+                href="/questions"
+                className="p-3 rounded-lg hover:bg-accent transition-colors"
+                title="Hot Network Questions"
+              >
+                <TrendingUp className="h-5 w-5 text-orange-500" />
+              </Link>
+            </div>
+
+            {/* Large spacer to compensate for missing content */}
+            {/* This accounts for:
+                - Popular Tags section header + 3 tag items
+                - Hot Questions section header + 3 question items
+                - All the spacing between them
+            */}
+            <div className="h-96"></div>
+          </div>
+        )}
       </div>
     </aside>
     </>

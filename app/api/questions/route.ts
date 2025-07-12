@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const filter = searchParams.get('filter')
     const tags = searchParams.get('tags')
     
-    // Building aggregation pipeline
+    // Build aggregation pipeline
     const pipeline: Array<Record<string, unknown>> = [
       {
         $addFields: {

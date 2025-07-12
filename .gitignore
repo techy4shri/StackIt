@@ -24,7 +24,9 @@ package-lock.json
 .DS_Store
 *.pem
 nul
-
+.clerk/
+.clerk/*
+.clerk/**/*
 # debug
 npm-debug.log*
 yarn-debug.log*
