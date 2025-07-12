@@ -84,3 +84,74 @@ export async function POST(
     )
   }
 }
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { userId } = await auth()
+    
+    if (!userId) {
+      return NextResponse.json({ vote: null })
+    }
+
+    const { id } = await params
+    const client = await clientPromise
+    const db = client.db('stackit')
+    
+    const existingVote = await db.collection('votes').findOne({
+      userId,
+      targetId: id,
+      targetType: 'question',
+    })
+
+    return NextResponse.json({ 
+      vote: existingVote ? existingVote.voteType : null 
+    })
+  } catch (error) {
+    console.error('Error checking vote:', error)
+    return NextResponse.json({ vote: null })
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { userId } = await auth()
+    
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const { id } = await params
+    const client = await clientPromise
+    const db = client.db('stackit')
+    
+    const existingVote = await db.collection('votes').findOne({
+      userId,
+      targetId: id,
+      targetType: 'question',
+    })
+
+    if (existingVote) {
+      await db.collection('votes').deleteOne({ _id: existingVote._id })
+      
+      const increment = existingVote.voteType === 'up' ? -1 : 1
+      await db.collection('questions').updateOne(
+        { _id: new ObjectId(id) },
+        { $inc: { votes: increment } }
+      )
+    }
+    
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Error removing vote:', error)
+    return NextResponse.json(
+      { error: 'Failed to remove vote' },
+      { status: 500 }
+    )
+  }
+}
