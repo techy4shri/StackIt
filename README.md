@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 🧩 Problem Statement (ID: 2)
 
-## Getting Started
+Design and develop **StackIt – A minimal Question-and-Answer platform** that supports collaborative learning and structured knowledge sharing. The platform should be simple, intuitive, and focused on the core experience of asking and answering questions within a community.
 
-First, run the development server:
+The system must:
+- Allow users to ask and answer questions using a rich text editor.
+- Implement voting, tagging, and answer acceptance features.
+- Include user roles (Guest, User, Admin) with appropriate permissions.
+- Support notifications and moderation controls for admins.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 👥 Team Details
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Role     | Name              | Email                          | GitHub                          |
+|----------|-------------------|--------------------------------|---------------------------------|
+| Leader   | Garima            | sushri4tech@gmail.com          | [GitHub Profile](https://github.com/techy4shri)      |
+| Member   | Swati Sharma      | 25sharmswati@gmail.com         | [GitHub Profile](https://github.com/swatified)      |
+| Member   | Priyanshu Aggarwal| priyanshujindal101@gmail.com   | [GitHub Profile](https://github.com/jindalpriyanshu101)      |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 Project Overview
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**StackIt** is a lightweight and focused Q&A platform tailored for learning communities. It emphasizes simplicity, collaboration, and meaningful interactions without unnecessary complexity.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔑 User Roles & Permissions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Role   | Permissions                                                                 |
+|--------|------------------------------------------------------------------------------|
+| Guest  | View all questions and answers                                              |
+| User   | Register, log in, post questions and answers, vote on answers               |
+| Admin  | Moderate content, ban users, send announcements, download reports           |
+
+---
+
+## 🧠 Core Features
+
+### 1. Ask Questions
+- Submit questions with:
+  - **Title** – Concise and descriptive
+  - **Description** – Created using a rich text editor
+  - **Tags** – Multi-select input (e.g., `React`, `JWT`)
+
+### 2. Rich Text Editor
+Supports formatting options for both questions and answers:
+- Bold, Italic, Strikethrough
+- Numbered & Bullet lists
+- Emoji insertion
+- Hyperlinks
+- Image uploads
+- Text alignment: Left, Center, Right
+
+### 3. Answering Questions
+- Logged-in users can answer any question
+- Full formatting supported via the same rich text editor
+
+### 4. Voting & Accepted Answers
+- Users can upvote/downvote answers
+- Question owners can mark one answer as accepted
+
+### 5. Tagging System
+- Mandatory tags on questions
+- Helps in content discovery and categorization
+
+### 6. Notification System
+- Bell icon shows unread count
+- Notifications for:
+  - Answers to user’s question
+  - Comments on user’s answers
+  - Mentions via `@username`
+- Dropdown view for recent activity
+
+
+## 🔐 Admin Capabilities
+
+Admins have access to moderation and analytics tools:
+- Reject inappropriate or spammy questions
+- Ban users violating platform policies
+- Send platform-wide messages (e.g., feature updates, downtime alerts)
+- Download reports: user activity, feedback, question/answer statistics
+
+
+
+## ⚙️ Tech Stack
+
+- **Frontend**: TBA Later
+- **Backend**: TBA Later
+- **Database**: TBA Later
+- **Text Editor**: TBA Later
+- **Authentication**: TBA Later
+
+---
+
+## 🛠️ Setup Instructions
+
+_This section will include steps to install, configure, and run the project once development begins._
+
+---
+
