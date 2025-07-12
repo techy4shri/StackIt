@@ -1,119 +1,130 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
-import { useUser, UserButton } from '@clerk/nextjs'
-import { Menu, X, Search, Plus } from 'lucide-react'
+import Link from 'next/link'
+import { useAuth, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { Search, Plus, Trophy, Shield } from 'lucide-react'
+import NotificationDropdown from '@/components/notification-dropdown'
+import { useUserRole } from '@/hooks/useUserRole'
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const { isSignedIn } = useUser()
+  const { isSignedIn } = useAuth()
+  const { isAdmin } = useUserRole()
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`
+    }
+  }
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-50">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="StackIt-gradient flex h-8 w-8 items-center justify-center rounded-lg text-white font-bold">
+    <nav className="sticky top-0 z-50 border-b backdrop-blur supports-[backdrop-filter]:bg-[#FFFBF9]/60" style={{ backgroundColor: '#FFFBF9' }}>
+      <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+            <div className="StackIt-gradient flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded text-white font-bold text-sm sm:text-base">
               S
             </div>
-            <span className="text-lg font-bold text-foreground">StackIt</span>
+            <span className="text-base sm:text-lg lg:text-xl font-bold text-foreground hidden xs:block">StackIt</span>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-6">
-            <Link
-              href="/questions"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Questions
-            </Link>
-            <Link
-              href="/search"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Search className="h-4 w-4" />
-            </Link>
-            {isSignedIn && (
-              <Link href="/ask">
-                <Button size="sm" className="StackIt-gradient text-white">
-                  <Plus className="h-4 w-4 mr-1" />
-                  Ask Question
-                </Button>
+          {/* Navigation Links */}
+          {isSignedIn && (
+            <div className="hidden md:flex items-center space-x-4 lg:space-x-6 ml-4 lg:ml-8">
+              <Link href="/questions" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                Questions
               </Link>
-            )}
+              <Link href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                Dashboard
+              </Link>
+              {isAdmin && (
+                <Link href="/admin" className="text-red-600 hover:text-red-700 transition-colors flex items-center space-x-1 text-sm">
+                  <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span>Admin</span>
+                </Link>
+              )}
+            </div>
+          )}
+
+          {/* Search Bar */}
+          <div className="flex-1 max-w-xs sm:max-w-sm lg:max-w-md mx-2 sm:mx-4">
+            <form onSubmit={handleSearch} className="relative">
+              <Search className="absolute left-2 sm:left-3 top-1/2 h-3 w-3 sm:h-4 sm:w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-6 sm:pl-10 pr-3 sm:pr-4 w-full text-sm py-1 sm:py-2"
+              />
+            </form>
           </div>
 
-          <div className="flex items-center space-x-4">
+          {/* Right Side */}
+          <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-4">
             {isSignedIn ? (
-              <UserButton afterSignOutUrl="/" />
+              <>
+                {/* Reputation & Badges - Hidden on mobile */}
+                <div className="hidden xl:flex items-center space-x-3 text-xs lg:text-sm">
+                  <div className="flex items-center space-x-1">
+                    <Trophy className="h-3 w-3 lg:h-4 lg:w-4 text-yellow-500" />
+                    <span className="font-medium">1,247</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Badge variant="secondary" className="h-1.5 w-1.5 lg:h-2 lg:w-2 rounded-full bg-yellow-500 p-0"></Badge>
+                    <span>8</span>
+                    <Badge variant="secondary" className="h-1.5 w-1.5 lg:h-2 lg:w-2 rounded-full bg-gray-400 p-0"></Badge>
+                    <span>23</span>
+                    <Badge variant="secondary" className="h-1.5 w-1.5 lg:h-2 lg:w-2 rounded-full bg-amber-600 p-0"></Badge>
+                    <span>42</span>
+                  </div>
+                </div>
+
+                {/* Notifications */}
+                <NotificationDropdown />
+
+                {/* Ask Question Button */}
+                <Link href="/ask" className="hidden sm:block">
+                  <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2">
+                    <Plus className="mr-1 lg:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="hidden lg:inline">Ask Question</span>
+                    <span className="lg:hidden">Ask</span>
+                  </Button>
+                </Link>
+
+                {/* User Menu */}
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "h-8 w-8"
+                    }
+                  }}
+                />
+              </>
             ) : (
-              <div className="hidden sm:flex space-x-2">
-                <Link href="/auth">
-                  <Button variant="outline" size="sm">
-                    Sign In
+              <>
+                <Link href="/auth?mode=signin">
+                  <Button variant="ghost" className="btn-modern text-sm">
+                    <span className="hidden xs:inline">Log in</span>
+                    <span className="xs:hidden">Login</span>
                   </Button>
                 </Link>
                 <Link href="/auth?mode=signup">
-                  <Button size="sm" className="StackIt-gradient text-white">
-                    Sign Up
+                  <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern text-sm">
+                    <span className="hidden xs:inline">Sign up</span>
+                    <span className="xs:hidden">Join</span>
                   </Button>
                 </Link>
-              </div>
+              </>
             )}
-
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-muted-foreground hover:text-foreground"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
           </div>
         </div>
-
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col space-y-3">
-              <Link
-                href="/questions"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Questions
-              </Link>
-              <Link
-                href="/search"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Search
-              </Link>
-              {isSignedIn && (
-                <Link href="/ask" onClick={() => setIsOpen(false)}>
-                  <Button size="sm" className="StackIt-gradient text-white w-fit">
-                    <Plus className="h-4 w-4 mr-1" />
-                    Ask Question
-                  </Button>
-                </Link>
-              )}
-              {!isSignedIn && (
-                <div className="flex space-x-2">
-                  <Link href="/auth" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" size="sm">
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link href="/auth?mode=signup" onClick={() => setIsOpen(false)}>
-                    <Button size="sm" className="StackIt-gradient text-white">
-                      Sign Up
-                    </Button>
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   )
