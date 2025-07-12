@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const tags = searchParams.get('tags')
     
     // Build aggregation pipeline
-    const pipeline: any[] = [
+    const pipeline: Array<Record<string, unknown>> = [
       {
         $addFields: {
           _idString: { $toString: '$_id' }

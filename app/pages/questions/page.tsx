@@ -35,7 +35,6 @@ function QuestionsContent() {
     async function fetchQuestions() {
       try {
         const response = await fetch('/api/questions', {
-          cache: 'force-cache',
           next: { revalidate: 30 } // Cache for 30 seconds
         })
         
@@ -118,7 +117,7 @@ function QuestionsContent() {
         // Filter questions with no answers - check both answers array and answerCount
         filtered = filtered.filter(q => {
           const answersArray = q.answers || []
-          const answerCount = (q as any).answerCount || answersArray.length
+          const answerCount = (q as Question & { answerCount?: number }).answerCount || answersArray.length
           return answerCount === 0
         })
         break

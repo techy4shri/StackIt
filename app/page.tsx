@@ -1,132 +1,128 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import QuestionCard from '@/components/question-card'
-import { Question } from '@/lib/types'
-import { Plus, Filter, TrendingUp } from 'lucide-react'
+import { ArrowRight, MessageSquare, Users, Trophy, Search, Plus } from 'lucide-react'
 
-async function getQuestions(): Promise<Question[]> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const response = await fetch(`${baseUrl}/api/questions`, {
-      next: { revalidate: 60 } // Revalidate every 60 seconds
-    })
-    if (!response.ok) return []
-    const data = await response.json()
-    return data.questions || []
-  } catch (error) {
-    console.error('Error fetching questions:', error)
-    return []
-  }
+// Static stats component for better performance
+function StatsSection() {
+  return (
+    <section className="py-12 bg-muted/30 rounded-lg mx-4">
+      <div className="max-w-4xl mx-auto px-4 text-center">
+        <h2 className="text-3xl font-bold mb-8">Join Our Growing Community</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div className="text-3xl font-bold text-orange-600 mb-2">500+</div>
+            <div className="text-muted-foreground">Questions Asked</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-amber-600 mb-2">200+</div>
+            <div className="text-muted-foreground">Active Users</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-yellow-600 mb-2">1K+</div>
+            <div className="text-muted-foreground">Answers Given</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
-export default async function HomePage() {
-  const questions = await getQuestions()
+export default function HomePage() {
 
   return (
-    <div className="space-y-4 sm:space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Top Questions</h1>
-          <p className="text-muted-foreground mt-1">
-            {questions.length} questions
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <section className="text-center py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+            Welcome to{' '}
+            <span className="bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+              StackIt
+            </span>
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            A modern Q&A platform where developers help each other solve problems and share knowledge.
           </p>
-        </div>
-        <Link href="/ask" className="w-full sm:w-auto">
-          <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern w-full sm:w-auto text-sm sm:text-base">
-            <Plus className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-            <span className="hidden xs:inline">Ask Question</span>
-            <span className="xs:hidden">Ask</span>
-          </Button>
-        </Link>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <Card className="stats-card card-glow">
-          <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">23.4k</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">questions</div>
-          </CardContent>
-        </Card>
-        <Card className="stats-card card-glow">
-          <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">34.2k</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">answers</div>
-          </CardContent>
-        </Card>
-        <Card className="stats-card card-glow">
-          <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">12.1k</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">users</div>
-          </CardContent>
-        </Card>
-        <Card className="stats-card card-glow">
-          <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">567</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">tags</div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      {/* Filter Tabs */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b pb-4 gap-4">
-        <div className="flex items-center space-x-1 overflow-x-auto w-full sm:w-auto">
-          <Button variant="default" size="sm" className="StackIt-gradient text-white btn-modern flex-shrink-0 text-xs sm:text-sm">
-            Newest
-          </Button>
-          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0 text-xs sm:text-sm">
-            <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-            <span className="hidden xs:inline">Active</span>
-            <span className="xs:hidden">Act</span>
-          </Button>
-          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0 text-xs sm:text-sm">
-            <span className="hidden xs:inline">Bountied</span>
-            <span className="xs:hidden">Boun</span>
-          </Button>
-          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0 text-xs sm:text-sm">
-            <span className="hidden xs:inline">Unanswered</span>
-            <span className="xs:hidden">No Ans</span>
-          </Button>
-          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0 text-xs sm:text-sm">
-            <span className="hidden xs:inline">Most Voted</span>
-            <span className="xs:hidden">Top</span>
-          </Button>
-        </div>
-        <Button variant="outline" size="sm" className="btn-modern w-full sm:w-auto flex-shrink-0 text-xs sm:text-sm">
-          <Filter className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-          Filter
-        </Button>
-      </div>
-      
-      <div className="space-y-3 sm:space-y-4">
-        {questions.length === 0 ? (
-          <div className="text-center py-8 sm:py-12">
-            <h2 className="text-lg sm:text-xl font-semibold mb-2">No questions yet</h2>
-            <p className="text-sm sm:text-base text-muted-foreground mb-4 px-4">
-              Be the first to ask a question and start the discussion!
-            </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/ask">
-              <Button className="text-sm sm:text-base">Ask the First Question</Button>
+              <Button size="lg" className="StackIt-gradient text-white px-8 py-3 text-lg">
+                <Plus className="mr-2 h-5 w-5" />
+                Ask a Question
+              </Button>
+            </Link>
+            <Link href="/pages/questions">
+              <Button variant="outline" size="lg" className="px-8 py-3 text-lg">
+                <Search className="mr-2 h-5 w-5" />
+                Browse Questions
+              </Button>
             </Link>
           </div>
-        ) : (
-          questions.map((question) => (
-            <QuestionCard key={question._id?.toString()} question={question} />
-          ))
-        )}
-      </div>
-      
-        {questions.length > 0 && (
-        <div className="flex justify-center mt-6 sm:mt-8">
-          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm w-full sm:w-auto">Previous</Button>
-            <span className="text-xs sm:text-sm text-muted-foreground">Page 1 of 1</span>
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm w-full sm:w-auto">Next</Button>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose StackIt?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MessageSquare className="h-8 w-8 text-orange-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Ask & Answer</h3>
+                <p className="text-muted-foreground">
+                  Get help from experienced developers and share your own knowledge with the community.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="h-8 w-8 text-amber-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Build Community</h3>
+                <p className="text-muted-foreground">
+                  Connect with fellow developers, build your reputation, and grow your network.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Trophy className="h-8 w-8 text-yellow-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Earn Recognition</h3>
+                <p className="text-muted-foreground">
+                  Gain reputation points and badges for providing helpful answers and quality questions.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      )}
+      </section>
+
+      {/* Stats Section */}
+      <StatsSection />
+
+      {/* CTA Section */}
+      <section className="py-12 text-center">
+        <div className="max-w-2xl mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-4">Ready to Start?</h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Join thousands of developers who are already helping each other solve problems.
+          </p>
+          <Link href="/auth">
+            <Button size="lg" className="StackIt-gradient text-white px-8 py-3 text-lg">
+              Get Started Today
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+        </div>
+      </section>
     </div>
   )
 }

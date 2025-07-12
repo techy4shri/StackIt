@@ -6,15 +6,23 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
-// Dynamically import Clerk components to avoid SSR issues
+// Dynamically import Clerk components to avoid SSR issues and reduce initial bundle
 const DynamicSignIn = dynamic(() => import('@clerk/nextjs').then(mod => ({ default: mod.SignIn })), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
+  loading: () => (
+    <div className="flex items-center justify-center h-64">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+    </div>
+  )
 })
 
 const DynamicSignUp = dynamic(() => import('@clerk/nextjs').then(mod => ({ default: mod.SignUp })), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
+  loading: () => (
+    <div className="flex items-center justify-center h-64">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+    </div>
+  )
 })
 
 function AuthContent() {
@@ -47,6 +55,24 @@ function AuthContent() {
               : 'Create an account to start asking and answering questions'
             }
           </p>
+        </div>
+
+        {/* Toggle Buttons at Top */}
+        <div className="flex gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <Button
+            variant={isSignIn ? "default" : "outline"}
+            className={`flex-1 text-sm sm:text-base ${isSignIn ? 'StackIt-gradient text-white' : ''}`}
+            onClick={() => setIsSignIn(true)}
+          >
+            Sign In
+          </Button>
+          <Button
+            variant={!isSignIn ? "default" : "outline"}
+            className={`flex-1 text-sm sm:text-base ${!isSignIn ? 'StackIt-gradient text-white' : ''}`}
+            onClick={() => setIsSignIn(false)}
+          >
+            Sign Up
+          </Button>
         </div>
         
         {/* Card Container */}
@@ -98,24 +124,6 @@ function AuthContent() {
               </div>
             </div>
           </motion.div>
-        </div>
-
-        {/* Toggle Buttons */}
-        <div className="flex gap-3 sm:gap-4 mt-4 sm:mt-6">
-          <Button
-            variant={isSignIn ? "default" : "outline"}
-            className={`flex-1 text-sm sm:text-base ${isSignIn ? 'StackIt-gradient text-white' : ''}`}
-            onClick={() => setIsSignIn(true)}
-          >
-            Sign In
-          </Button>
-          <Button
-            variant={!isSignIn ? "default" : "outline"}
-            className={`flex-1 text-sm sm:text-base ${!isSignIn ? 'StackIt-gradient text-white' : ''}`}
-            onClick={() => setIsSignIn(false)}
-          >
-            Sign Up
-          </Button>
         </div>
 
         <p className="text-center text-xs sm:text-sm text-muted-foreground mt-4 sm:mt-6">
