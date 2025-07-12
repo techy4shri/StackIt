@@ -35,40 +35,94 @@ export async function POST(
       targetType: 'question',
     })
 
+    // Prevent multiple votes per user
     if (existingVote) {
-      if (existingVote.voteType === voteType) {
-        // Remove vote if same type
-        await db.collection('votes').deleteOne({ _id: existingVote._id })
-        
-        const increment = voteType === 'up' ? -1 : 1
-        await db.collection('questions').updateOne(
-          { _id: new ObjectId(id) },
-          { $inc: { votes: increment } }
-        )
-      } else {
-        // Update vote type
-        await db.collection('votes').updateOne(
-          { _id: existingVote._id },
-          { $set: { voteType } }
-        )
-        
-        const increment = voteType === 'up' ? 2 : -2
-        await db.collection('questions').updateOne(
-          { _id: new ObjectId(id) },
-          { $inc: { votes: increment } }
-        )
-      }
-    } else {
-      // Create new vote
-      await db.collection('votes').insertOne({
-        userId,
-        targetId: id,
-        targetType: 'question',
-        voteType,
-        createdAt: new Date(),
-      })
+      return NextResponse.json(
+        { error: 'You have already voted on this question' },
+        { status: 400 }
+      )
+    }
+
+    // Create new vote (only one vote allowed per user)
+    await db.collection('votes').insertOne({
+      userId,
+      targetId: id,
+      targetType: 'question',
+      voteType,
+      createdAt: new Date(),
+    })
+    
+    const increment = voteType === 'up' ? 1 : -1
+    await db.collection('questions').updateOne(
+      { _id: new ObjectId(id) },
+      { $inc: { votes: increment } }
+    )
+    
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Error voting:', error)
+    return NextResponse.json(
+      { error: 'Failed to vote' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { userId } = await auth()
+    
+    if (!userId) {
+      return NextResponse.json({ vote: null })
+    }
+
+    const { id } = await params
+    const client = await clientPromise
+    const db = client.db('stackit')
+    
+    const existingVote = await db.collection('votes').findOne({
+      userId,
+      targetId: id,
+      targetType: 'question',
+    })
+
+    return NextResponse.json({ 
+      vote: existingVote ? existingVote.voteType : null 
+    })
+  } catch (error) {
+    console.error('Error checking vote:', error)
+    return NextResponse.json({ vote: null })
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { userId } = await auth()
+    
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const { id } = await params
+    const client = await clientPromise
+    const db = client.db('stackit')
+    
+    const existingVote = await db.collection('votes').findOne({
+      userId,
+      targetId: id,
+      targetType: 'question',
+    })
+
+    if (existingVote) {
+      await db.collection('votes').deleteOne({ _id: existingVote._id })
       
-      const increment = voteType === 'up' ? 1 : -1
+      const increment = existingVote.voteType === 'up' ? -1 : 1
       await db.collection('questions').updateOne(
         { _id: new ObjectId(id) },
         { $inc: { votes: increment } }
@@ -77,9 +131,9 @@ export async function POST(
     
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error voting:', error)
+    console.error('Error removing vote:', error)
     return NextResponse.json(
-      { error: 'Failed to vote' },
+      { error: 'Failed to remove vote' },
       { status: 500 }
     )
   }

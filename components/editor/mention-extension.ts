@@ -5,7 +5,7 @@ import { MentionNodeView } from './mention-node-view'
 
 export interface MentionOptions {
   HTMLAttributes: Record<string, any>
-  renderText: (props: { options: MentionOptions; node: any }) => string
+  renderText: (_props: { options: MentionOptions; node: any }) => string
   suggestion: any
 }
 

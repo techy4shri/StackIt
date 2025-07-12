@@ -47,12 +47,20 @@ export default function VotingButtons({
         size="sm"
         className={cn(
           sizeClasses[size],
-          'p-0 hover:bg-green-50 hover:text-green-600 transition-colors',
-          voteState.voteType === 'up' && 'bg-green-100 text-green-700 hover:bg-green-100'
+          'p-0 transition-colors',
+          voteState.voteType === 'up' 
+            ? 'bg-green-100 text-green-700 hover:bg-green-100 cursor-default' 
+            : voteState.hasVoted 
+              ? 'opacity-50 cursor-not-allowed hover:bg-transparent' 
+              : 'hover:bg-green-50 hover:text-green-600'
         )}
         onClick={() => vote('up')}
-        disabled={!canVote || loading}
-        title={!canVote ? 'Sign in to vote' : 'Vote up'}
+        disabled={!canVote || loading || voteState.hasVoted}
+        title={
+          !canVote ? 'Sign in to vote' : 
+          voteState.hasVoted ? 'You have already voted' : 
+          'Vote up'
+        }
       >
         <ChevronUp className={iconSizes[size]} />
       </Button>
@@ -71,19 +79,36 @@ export default function VotingButtons({
         size="sm"
         className={cn(
           sizeClasses[size],
-          'p-0 hover:bg-red-50 hover:text-red-600 transition-colors',
-          voteState.voteType === 'down' && 'bg-red-100 text-red-700 hover:bg-red-100'
+          'p-0 transition-colors',
+          voteState.voteType === 'down' 
+            ? 'bg-red-100 text-red-700 hover:bg-red-100 cursor-default' 
+            : voteState.hasVoted 
+              ? 'opacity-50 cursor-not-allowed hover:bg-transparent' 
+              : 'hover:bg-red-50 hover:text-red-600'
         )}
         onClick={() => vote('down')}
-        disabled={!canVote || loading}
-        title={!canVote ? 'Sign in to vote' : 'Vote down'}
+        disabled={!canVote || loading || voteState.hasVoted}
+        title={
+          !canVote ? 'Sign in to vote' : 
+          voteState.hasVoted ? 'You have already voted' : 
+          'Vote down'
+        }
       >
         <ChevronDown className={iconSizes[size]} />
       </Button>
       
       {!canVote && (
-        <span className="text-xs text-muted-foreground mt-1">
+        <button 
+          onClick={() => vote('up')} 
+          className="text-xs text-blue-600 hover:text-blue-800 underline mt-1 cursor-pointer"
+        >
           Sign in to vote
+        </button>
+      )}
+      
+      {voteState.hasVoted && (
+        <span className="text-xs text-muted-foreground mt-1">
+          Voted {voteState.voteType === 'up' ? '👍' : '👎'}
         </span>
       )}
     </div>
