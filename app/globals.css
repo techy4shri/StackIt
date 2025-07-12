@@ -399,6 +399,51 @@
     background-color: #bfdbfe;
   }
 
+  /* Mobile hamburger bar styles */
+  .mobile-hamburger-bar {
+    height: 4rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    main {
+      padding: 6rem !important;
+    }
+  }
+
+  /* Mobile responsive improvements */
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .stats-card {
+      padding: 1rem;
+    }
+    
+    .btn-modern {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    
+    .sidebar-nav-item {
+      padding: 0.75rem;
+      font-size: 0.875rem;
+    }
+  }
+  
+  @media (max-width: 475px) {
+    .btn-modern {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+    
+    .stats-card {
+      padding: 0.75rem;
+    }
+  }
+
   /* TipTap mention dropdown styles */
   .tippy-box {
     background: white;
@@ -409,5 +454,19 @@
   
   .tippy-content {
     padding: 0;
+  }
+
+  /* Rich Text Editor Resizable Styles */
+  .ProseMirror {
+    outline: none;
+    min-height: 200px;
+    resize: vertical;
+    overflow: auto;
+    padding: 1rem;
+    border-top: 1px solid hsl(var(--border));
+  }
+  
+  .ProseMirror:focus {
+    outline: none;
   }
 }

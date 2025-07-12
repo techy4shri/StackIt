@@ -26,15 +26,15 @@ export default async function HomePage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Top Questions</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Top Questions</h1>
           <p className="text-muted-foreground mt-1">
             {questions.length} questions
           </p>
         </div>
-        <Link href="/ask">
-          <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern">
+        <Link href="/ask" className="w-full sm:w-auto">
+          <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Ask Question
           </Button>
@@ -42,54 +42,55 @@ export default async function HomePage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card className="stats-card card-glow">
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-foreground">23.4k</div>
-            <div className="text-sm text-muted-foreground">questions</div>
+          <CardContent className="p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-foreground">23.4k</div>
+            <div className="text-xs sm:text-sm text-muted-foreground">questions</div>
           </CardContent>
         </Card>
         <Card className="stats-card card-glow">
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-foreground">34.2k</div>
-            <div className="text-sm text-muted-foreground">answers</div>
+          <CardContent className="p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-foreground">34.2k</div>
+            <div className="text-xs sm:text-sm text-muted-foreground">answers</div>
           </CardContent>
         </Card>
         <Card className="stats-card card-glow">
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-foreground">12.1k</div>
-            <div className="text-sm text-muted-foreground">users</div>
+          <CardContent className="p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-foreground">12.1k</div>
+            <div className="text-xs sm:text-sm text-muted-foreground">users</div>
           </CardContent>
         </Card>
         <Card className="stats-card card-glow">
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-foreground">567</div>
-            <div className="text-sm text-muted-foreground">tags</div>
+          <CardContent className="p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-foreground">567</div>
+            <div className="text-xs sm:text-sm text-muted-foreground">tags</div>
           </CardContent>
         </Card>
       </div>
       
       {/* Filter Tabs */}
-      <div className="flex items-center justify-between border-b pb-4">
-        <div className="flex items-center space-x-1">
-          <Button variant="default" size="sm" className="StackIt-gradient text-white btn-modern">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b pb-4 gap-4">
+        <div className="flex items-center space-x-1 overflow-x-auto w-full sm:w-auto">
+          <Button variant="default" size="sm" className="StackIt-gradient text-white btn-modern flex-shrink-0">
             Newest
           </Button>
-          <Button variant="ghost" size="sm" className="btn-modern">
-            <TrendingUp className="h-4 w-4 mr-2" />
-            Active
+          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0">
+            <TrendingUp className="h-4 w-4 mr-1 sm:mr-2" />
+            <span className="hidden xs:inline">Active</span>
           </Button>
-          <Button variant="ghost" size="sm" className="btn-modern">
+          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0">
             Bountied
           </Button>
-          <Button variant="ghost" size="sm" className="btn-modern">
-            Unanswered
+          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0">
+            <span className="hidden xs:inline">Unanswered</span>
+            <span className="xs:hidden">Unans.</span>
           </Button>
-          <Button variant="ghost" size="sm" className="btn-modern">
+          <Button variant="ghost" size="sm" className="btn-modern flex-shrink-0">
             More
           </Button>
         </div>
-        <Button variant="outline" size="sm" className="btn-modern">
+        <Button variant="outline" size="sm" className="btn-modern w-full sm:w-auto flex-shrink-0">
           <Filter className="h-4 w-4 mr-2" />
           Filter
         </Button>
@@ -113,9 +114,9 @@ export default async function HomePage() {
         )}
       </div>
       
-      {questions.length > 0 && (
+        {questions.length > 0 && (
         <div className="flex justify-center mt-8">
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
             <Button variant="outline" size="sm">Previous</Button>
             <span className="text-sm text-muted-foreground">Page 1 of 1</span>
             <Button variant="outline" size="sm">Next</Button>

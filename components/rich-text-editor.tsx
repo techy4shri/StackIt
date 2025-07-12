@@ -178,7 +178,11 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
           <AtSign className="h-4 w-4" />
         </Button>
       </div>
-      <EditorContent editor={editor} />
+      <EditorContent 
+        editor={editor} 
+        className="prose prose-sm max-w-none min-h-[200px] p-4 focus-within:outline-none resize-y overflow-auto border-t"
+        style={{ resize: 'vertical' }}
+      />
     </div>
   )
 }

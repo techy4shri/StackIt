@@ -1,42 +1,34 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Answer, Comment } from '@/lib/types'
-import { ThumbsUp, ThumbsDown, Check, User, MessageSquare, Send } from 'lucide-react'
+import { Check, User, MessageSquare, Send } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { sendMentionNotifications } from '@/lib/mentions'
+import VotingButtons from '@/components/voting-buttons'
 
 interface AnswerCardProps {
   answer: Answer
   questionAuthorId: string
-  onVote: (answerId: string, voteType: 'up' | 'down') => void
   onAccept: (answerId: string) => void
 }
 
 export default function AnswerCard({ 
   answer, 
   questionAuthorId, 
-  onVote, 
   onAccept 
 }: AnswerCardProps) {
   const { userId } = useAuth()
-  const [isVoting, setIsVoting] = useState(false)
   const [showComments, setShowComments] = useState(false)
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState('')
   const [isSubmittingComment, setIsSubmittingComment] = useState(false)
 
-  useEffect(() => {
-    if (showComments) {
-      fetchComments()
-    }
-  }, [showComments])
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const response = await fetch(`/api/answers/${answer._id}/comments`)
       const data = await response.json()
@@ -44,7 +36,13 @@ export default function AnswerCard({
     } catch (error) {
       console.error('Error fetching comments:', error)
     }
-  }
+  }, [answer._id])
+
+  useEffect(() => {
+    if (showComments) {
+      fetchComments()
+    }
+  }, [showComments, fetchComments])
 
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -74,17 +72,6 @@ export default function AnswerCard({
       console.error('Error submitting comment:', error)
     } finally {
       setIsSubmittingComment(false)
-    }
-  }
-
-  const handleVote = async (voteType: 'up' | 'down') => {
-    if (!userId || isVoting) return
-    
-    setIsVoting(true)
-    try {
-      await onVote(answer._id?.toString() || '', voteType)
-    } finally {
-      setIsVoting(false)
     }
   }
 
@@ -120,25 +107,13 @@ export default function AnswerCard({
         />
         
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
+          <div className="flex items-center space-x-4">
+            <VotingButtons
+              targetId={answer._id?.toString() || ''}
+              targetType="answer"
+              initialVotes={answer.votes || 0}
               size="sm"
-              onClick={() => handleVote('up')}
-              disabled={!userId || isVoting}
-              className="flex items-center space-x-1"
-            >
-              <ThumbsUp className="h-4 w-4" />
-              <span>{answer.votes}</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handleVote('down')}
-              disabled={!userId || isVoting}
-            >
-              <ThumbsDown className="h-4 w-4" />
-            </Button>
+            />
           </div>
           
           <div className="flex items-center space-x-2">

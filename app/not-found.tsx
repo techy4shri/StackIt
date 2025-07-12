@@ -30,7 +30,7 @@ export default function NotFound() {
             
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/">
+              <Link href="/pages/homepage">
                 <Button className="StackIt-gradient text-white btn-modern w-full sm:w-auto">
                   <Home className="mr-2 h-4 w-4" />
                   Go Home
@@ -63,9 +63,9 @@ export default function NotFound() {
         <div className="mt-8 text-sm text-muted-foreground">
           <p className="mb-4">Popular pages:</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+            <Link href="/pages/homepage" className="hover:text-primary transition-colors">Home</Link>
             <span>•</span>
-            <Link href="/questions" className="hover:text-primary transition-colors">Questions</Link>
+            <Link href="/pages/questions" className="hover:text-primary transition-colors">Questions</Link>
             <span>•</span>
             <Link href="/tags" className="hover:text-primary transition-colors">Tags</Link>
             <span>•</span>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 
 interface User {
@@ -11,7 +12,7 @@ interface MentionListProps {
   command: (item: { id: string; label: string }) => void
 }
 
-export const MentionList = forwardRef<{onKeyDown: (props: any) => boolean}, MentionListProps>((props, ref) => {
+const MentionList = forwardRef<{onKeyDown: (props: any) => boolean}, MentionListProps>((props, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   const selectItem = (index: number) => {
@@ -87,3 +88,7 @@ export const MentionList = forwardRef<{onKeyDown: (props: any) => boolean}, Ment
     </div>
   )
 })
+
+MentionList.displayName = 'MentionList'
+
+export { MentionList }

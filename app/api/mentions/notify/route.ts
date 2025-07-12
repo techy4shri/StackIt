@@ -19,9 +19,8 @@ export async function POST(request: NextRequest) {
     const client = await clientPromise
     const db = client.db('stackit')
     
-    // Create notifications for mentioned users
     const notifications = mentionedUsernames.map((username: string) => ({
-      userId: username, // In production, you'd convert username to userId
+      userId: username,
       type,
       title: 'You were mentioned',
       message: `You were mentioned in a ${type}`,

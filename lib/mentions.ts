@@ -1,4 +1,3 @@
-// Helper function to extract @mentions from content
 export function extractMentions(content: string): string[] {
   const mentionRegex = /@(\w+)/g
   const mentions: string[] = []
@@ -8,10 +7,9 @@ export function extractMentions(content: string): string[] {
     mentions.push(match[1])
   }
 
-  return [...new Set(mentions)] // Remove duplicates
+  return [...new Set(mentions)]
 }
 
-// Helper function to send mention notifications
 export async function sendMentionNotifications(
   content: string,
   type: 'question' | 'answer' | 'comment' = 'comment'

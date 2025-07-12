@@ -1,14 +1,21 @@
+'use client'
+
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Question } from '@/lib/types'
-import { User, Clock } from 'lucide-react'
+import { Clock, Trash2 } from 'lucide-react'
+import { useUserRole } from '@/hooks/useUserRole'
+import VotingButtons from '@/components/voting-buttons'
 
 interface QuestionCardProps {
   question: Question
 }
 
 export default function QuestionCard({ question }: QuestionCardProps) {
+  const { isAdmin } = useUserRole()
+  
   const timeAgo = (date: Date) => {
     const now = new Date()
     const diff = now.getTime() - new Date(date).getTime()
@@ -26,31 +33,37 @@ export default function QuestionCard({ question }: QuestionCardProps) {
   const answerCount = Array.isArray(question.answers) ? question.answers.length : (question.answers || 0)
 
   return (
-    <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary">
+    <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary" style={{ backgroundColor: '#fbfbfa' }}>
       <CardContent className="p-6">
         <div className="flex gap-6">
+          {/* Voting Column */}
+          <div className="flex items-start">
+            <VotingButtons
+              targetId={question._id?.toString() || ''}
+              targetType="question"
+              initialVotes={question.votes || 0}
+              size="md"
+            />
+          </div>
+
           {/* Stats Column */}
           <div className="flex flex-col items-center space-y-3 text-sm text-muted-foreground min-w-[80px]">
-            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-muted/50 to-muted/20">
-              <span className="font-bold text-lg text-foreground">{question.votes || 0}</span>
-              <span className="text-xs font-medium">votes</span>
-            </div>
             <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-green-50 to-green-100/20">
-              <span className="font-bold text-lg text-green-700">{answerCount}</span>
+              <span className="font-bold text-base sm:text-lg text-green-700">{answerCount}</span>
               <span className="text-xs font-medium text-green-600">answers</span>
             </div>
             <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-blue-50 to-blue-100/20">
-              <span className="font-bold text-lg text-blue-700">{Math.floor(Math.random() * 100)}</span>
+              <span className="font-bold text-base sm:text-lg text-blue-700">{Math.floor(Math.random() * 100)}</span>
               <span className="text-xs font-medium text-blue-600">views</span>
             </div>
           </div>
 
           {/* Content Column */}
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-3 min-w-0">
             {/* Title */}
             <Link 
               href={`/question/${question._id}`}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors line-clamp-2"
+              className="text-base sm:text-lg font-medium text-foreground hover:text-primary transition-colors line-clamp-2 block"
             >
               {question.title}
             </Link>
@@ -64,7 +77,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
             />
             
             {/* Tags */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {question.tags?.map((tag, index) => (
                 <Badge 
                   key={index} 
@@ -77,21 +90,41 @@ export default function QuestionCard({ question }: QuestionCardProps) {
             </div>
             
             {/* Author and Time */}
-            <div className="flex items-center justify-between pt-2">
+            <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between pt-2 gap-2">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <User className="h-4 w-4" />
-                <span>{question.authorName || 'Anonymous'}</span>
-                <span>•</span>
-                <Clock className="h-4 w-4" />
-                <span>{timeAgo(question.createdAt)}</span>
+                <span className="truncate">{question.authorName || 'Anonymous'}</span>
+                <span className="hidden xs:inline">•</span>
+                <Clock className="h-4 w-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">{timeAgo(question.createdAt)}</span>
               </div>
               
-              {/* Random activity badge for demo */}
-              {Math.random() > 0.7 && (
-                <Badge variant="outline" className="text-xs text-green-600 border-green-600 bg-green-50 font-medium">
-                  🔥 Active
-                </Badge>
-              )}
+              <div className="flex items-center space-x-2">
+                {/* Random activity badge for demo */}
+                {Math.random() > 0.7 && (
+                  <Badge variant="outline" className="text-xs text-green-600 border-green-600 bg-green-50 font-medium">
+                    🔥 Active
+                  </Badge>
+                )}
+                
+                {/* Admin Controls */}
+                {isAdmin && (
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    className="h-8 px-2 text-xs"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      if (confirm('Are you sure you want to delete this question?')) {
+                        // In real app, make API call to delete question
+                        alert('Question deleted by admin')
+                      }
+                    }}
+                  >
+                    <Trash2 className="h-3 w-3 mr-1" />
+                    Delete
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>

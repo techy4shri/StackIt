@@ -14,21 +14,18 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Simple admin check - in production, check user role in database
-    const isAdmin = true // For demo purposes
-
-    if (!isAdmin) {
+    const client = await clientPromise
+    const db = client.db('stackit')
+    
+    const user = await db.collection('users').findOne({ clerkId: userId })
+    if (!user || (user.role !== 'admin' && user.role !== 'super_admin')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = await params
-    const client = await clientPromise
-    const db = client.db('stackit')
     
-    // Delete related votes first
     await db.collection('votes').deleteMany({ targetId: id, targetType: 'answer' })
     
-    // Delete the answer
     const result = await db.collection('answers').deleteOne({
       _id: new ObjectId(id)
     })

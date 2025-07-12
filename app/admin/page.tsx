@@ -5,8 +5,9 @@ import { useAuth } from '@clerk/nextjs'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Question, Answer, User } from '@/lib/types'
-import { Shield, Users, MessageSquare, BarChart3, Ban, Trash2 } from 'lucide-react'
+import { Question } from '@/lib/types'
+import { Shield, Users, MessageSquare, BarChart3, Trash2 } from 'lucide-react'
+import UserManagement from '@/components/user-management'
 
 export default function AdminPage() {
   const { userId } = useAuth()
@@ -18,6 +19,7 @@ export default function AdminPage() {
   })
   const [recentQuestions, setRecentQuestions] = useState<Question[]>([])
   const [isAdmin, setIsAdmin] = useState(false)
+  const [userRole, setUserRole] = useState('user')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -32,8 +34,11 @@ export default function AdminPage() {
       const response = await fetch('/api/admin/check')
       const data = await response.json()
       setIsAdmin(data.isAdmin)
+      setUserRole(data.role || 'user')
     } catch (error) {
       console.error('Error checking admin status:', error)
+      setIsAdmin(false)
+      setUserRole('user')
     } finally {
       setLoading(false)
     }
@@ -178,6 +183,9 @@ export default function AdminPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* User Management */}
+      <UserManagement currentUserRole={userRole} />
     </div>
   )
 }

@@ -20,15 +20,29 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
         <body className={inter.className}>
-          <div className="min-h-screen bg-gradient-to-br from-background via-background to-orange-50/10">
-            <Navbar />
-            <div className="flex">
-              <Sidebar />
-              <main className="flex-1 p-6 page-enter">
-                <div className="mx-auto max-w-6xl">
-                  {children}
-                </div>
-              </main>
+          <div className="min-h-screen w-full relative bg-white">
+            {/* Orange Soft Glow */}
+            <div
+              className="absolute inset-0 z-0"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at center, #FF7112, transparent)
+                `,
+                opacity: 0.3,
+                mixBlendMode: "multiply",
+              }}
+            />
+            {/* App Content */}
+            <div className="relative z-10">
+              <Navbar />
+              <div className="flex">
+                <Sidebar />
+                <main className="flex-1 p-3 sm:p-4 lg:p-6 page-enter">
+                  <div className="mx-auto max-w-6xl">
+                    {children}
+                  </div>
+                </main>
+              </div>
             </div>
           </div>
         </body>
