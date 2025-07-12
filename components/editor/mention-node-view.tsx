@@ -1,4 +1,5 @@
 import React from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NodeViewWrapper } from '@tiptap/react'
 
 export const MentionNodeView = ({ node }: { node: any }) => {

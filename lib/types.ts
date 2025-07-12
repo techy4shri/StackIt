@@ -59,10 +59,11 @@ export interface Notification {
 export interface User {
   _id?: ObjectId
   clerkId: string
-  email: string
-  name: string
+  email?: string
+  name?: string
   imageUrl?: string
-  role: 'guest' | 'user' | 'admin'
-  reputation: number
+  role: 'user' | 'admin' | 'super_admin'
+  reputation?: number
   createdAt: Date
+  updatedAt: Date
 }

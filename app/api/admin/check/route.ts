@@ -1,12 +1,6 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
-
-// For demo purposes, we'll use a simple admin check
-// In production, you'd store admin status in your database
-const ADMIN_USER_IDS: string[] = [
-  // Add your Clerk user IDs here that should have admin access
-  // You can get this from Clerk dashboard or when you sign up
-]
+import clientPromise from '@/lib/mongodb'
 
 export async function GET() {
   try {
@@ -16,13 +10,31 @@ export async function GET() {
       return NextResponse.json({ isAdmin: false })
     }
 
-    // For demo purposes, let's make the first user an admin
-    // In production, you'd check a user roles table in your database
-    const isAdmin = ADMIN_USER_IDS.includes(userId) || userId.length > 0 // This makes everyone admin for demo
+    const client = await clientPromise
+    const db = client.db('stackit')
     
-    return NextResponse.json({ isAdmin })
+    // Check if user exists in users collection with admin role
+    let user = await db.collection('users').findOne({ clerkId: userId })
+    
+    // If user doesn't exist, create them with default role
+    if (!user) {
+      const newUser = {
+        clerkId: userId,
+        role: 'user', // Default role is 'user'
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      
+      const result = await db.collection('users').insertOne(newUser)
+      user = await db.collection('users').findOne({ _id: result.insertedId })
+    }
+    
+    // Check if user has admin role
+    const isAdmin = user?.role === 'admin' || user?.role === 'super_admin'
+    
+    return NextResponse.json({ isAdmin, role: user?.role || 'user' })
   } catch (error) {
     console.error('Error checking admin status:', error)
-    return NextResponse.json({ isAdmin: false })
+    return NextResponse.json({ isAdmin: false, role: 'user' })
   }
 }

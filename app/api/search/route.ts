@@ -10,10 +10,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ questions: [] })
     }
 
+    // Handle database connection gracefully during build
     const client = await clientPromise
     const db = client.db('stackit')
     
-    // Create text search index on title, description, and tags
     const questions = await db
       .collection('questions')
       .find({
@@ -30,6 +30,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ questions })
   } catch (error) {
     console.error('Error searching questions:', error)
+    
+    // During build, return empty result instead of failing
+    if (process.env.NODE_ENV === 'production' && !process.env.MONGODB_URI) {
+      return NextResponse.json({ questions: [] })
+    }
+    
     return NextResponse.json(
       { error: 'Failed to search questions' },
       { status: 500 }

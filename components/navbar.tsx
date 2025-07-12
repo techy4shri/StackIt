@@ -32,6 +32,18 @@ export default function Navbar() {
             <span className="text-lg sm:text-xl font-bold text-foreground hidden xs:block">StackIt</span>
           </Link>
           
+          {/* Navigation Links */}
+          {isSignedIn && (
+            <div className="hidden md:flex items-center space-x-6 ml-8">
+              <Link href="/pages/questions" className="text-muted-foreground hover:text-foreground transition-colors">
+                Questions
+              </Link>
+              <Link href="/pages/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+                Dashboard
+              </Link>
+            </div>
+          )}
+          
           {/* Search Bar */}
           <div className="flex-1 max-w-2xl mx-2 sm:mx-4 lg:mx-8">
             <form onSubmit={handleSearch} className="relative">

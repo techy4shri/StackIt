@@ -10,7 +10,6 @@ import AnswerCard from '@/components/answer-card'
 import { Question, Answer } from '@/lib/types'
 import { ThumbsUp, ThumbsDown, User, MessageSquare } from 'lucide-react'
 
-// Force dynamic rendering for authenticated features
 export const dynamic = 'force-dynamic'
 
 interface QuestionPageProps {

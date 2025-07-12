@@ -18,6 +18,12 @@ export async function GET() {
     return NextResponse.json({ questions })
   } catch (error) {
     console.error('Error fetching questions:', error)
+    
+    // During build, return empty result instead of failing
+    if (process.env.NODE_ENV === 'production' && !process.env.MONGODB_URI) {
+      return NextResponse.json({ questions: [] })
+    }
+    
     return NextResponse.json(
       { error: 'Failed to fetch questions' },
       { status: 500 }

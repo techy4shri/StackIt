@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -30,13 +30,7 @@ export default function AnswerCard({
   const [newComment, setNewComment] = useState('')
   const [isSubmittingComment, setIsSubmittingComment] = useState(false)
 
-  useEffect(() => {
-    if (showComments) {
-      fetchComments()
-    }
-  }, [showComments])
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const response = await fetch(`/api/answers/${answer._id}/comments`)
       const data = await response.json()
@@ -44,7 +38,13 @@ export default function AnswerCard({
     } catch (error) {
       console.error('Error fetching comments:', error)
     }
-  }
+  }, [answer._id])
+
+  useEffect(() => {
+    if (showComments) {
+      fetchComments()
+    }
+  }, [showComments, fetchComments])
 
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault()
