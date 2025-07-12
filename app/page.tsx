@@ -34,7 +34,7 @@ export default async function HomePage() {
           </p>
         </div>
         <Link href="/ask">
-          <Button className="StackIt-gradient text-white hover:opacity-90">
+          <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern">
             <Plus className="h-4 w-4 mr-2" />
             Ask Question
           </Button>
@@ -43,25 +43,25 @@ export default async function HomePage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="stats-card card-glow">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-foreground">23.4k</div>
             <div className="text-sm text-muted-foreground">questions</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stats-card card-glow">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-foreground">34.2k</div>
             <div className="text-sm text-muted-foreground">answers</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stats-card card-glow">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-foreground">12.1k</div>
             <div className="text-sm text-muted-foreground">users</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stats-card card-glow">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-foreground">567</div>
             <div className="text-sm text-muted-foreground">tags</div>
@@ -70,26 +70,26 @@ export default async function HomePage() {
       </div>
       
       {/* Filter Tabs */}
-      <div className="flex items-center justify-between border-b">
+      <div className="flex items-center justify-between border-b pb-4">
         <div className="flex items-center space-x-1">
-          <Button variant="default" size="sm" className="bg-primary text-primary-foreground">
+          <Button variant="default" size="sm" className="StackIt-gradient text-white btn-modern">
             Newest
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="btn-modern">
             <TrendingUp className="h-4 w-4 mr-2" />
             Active
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="btn-modern">
             Bountied
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="btn-modern">
             Unanswered
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="btn-modern">
             More
           </Button>
         </div>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="btn-modern">
           <Filter className="h-4 w-4 mr-2" />
           Filter
         </Button>

@@ -71,7 +71,7 @@ export default function Navbar() {
 
                 {/* Ask Question Button */}
                 <Link href="/ask">
-                  <Button className="StackIt-gradient text-white hover:opacity-90">
+                  <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern">
                     <Plus className="mr-2 h-4 w-4" />
                     Ask Question
                   </Button>
@@ -89,10 +89,10 @@ export default function Navbar() {
             ) : (
               <>
                 <Link href="/sign-in">
-                  <Button variant="ghost">Log in</Button>
+                  <Button variant="ghost" className="btn-modern">Log in</Button>
                 </Link>
                 <Link href="/sign-up">
-                  <Button className="StackIt-gradient text-white hover:opacity-90">
+                  <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern">
                     Sign up
                   </Button>
                 </Link>

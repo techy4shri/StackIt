@@ -26,22 +26,22 @@ export default function QuestionCard({ question }: QuestionCardProps) {
   const answerCount = Array.isArray(question.answers) ? question.answers.length : (question.answers || 0)
 
   return (
-    <Card className="question-card-hover border-l-4 border-l-transparent hover:border-l-primary">
+    <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary">
       <CardContent className="p-6">
         <div className="flex gap-6">
           {/* Stats Column */}
-          <div className="flex flex-col items-center space-y-2 text-sm text-muted-foreground min-w-[80px]">
-            <div className="flex flex-col items-center">
-              <span className="font-medium text-foreground">{question.votes || 0}</span>
-              <span className="text-xs">votes</span>
+          <div className="flex flex-col items-center space-y-3 text-sm text-muted-foreground min-w-[80px]">
+            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-muted/50 to-muted/20">
+              <span className="font-bold text-lg text-foreground">{question.votes || 0}</span>
+              <span className="text-xs font-medium">votes</span>
             </div>
-            <div className="flex flex-col items-center">
-              <span className="font-medium text-foreground">{answerCount}</span>
-              <span className="text-xs">answers</span>
+            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-green-50 to-green-100/20">
+              <span className="font-bold text-lg text-green-700">{answerCount}</span>
+              <span className="text-xs font-medium text-green-600">answers</span>
             </div>
-            <div className="flex flex-col items-center">
-              <span className="font-medium text-foreground">{Math.floor(Math.random() * 100)}</span>
-              <span className="text-xs">views</span>
+            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-blue-50 to-blue-100/20">
+              <span className="font-bold text-lg text-blue-700">{Math.floor(Math.random() * 100)}</span>
+              <span className="text-xs font-medium text-blue-600">views</span>
             </div>
           </div>
 
@@ -69,7 +69,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
                 <Badge 
                   key={index} 
                   variant="secondary" 
-                  className="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100"
+                  className="tag-modern text-xs bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 hover:from-blue-100 hover:to-indigo-100 border-blue-200"
                 >
                   {tag}
                 </Badge>
@@ -88,8 +88,8 @@ export default function QuestionCard({ question }: QuestionCardProps) {
               
               {/* Random activity badge for demo */}
               {Math.random() > 0.7 && (
-                <Badge variant="outline" className="text-xs text-green-600 border-green-600">
-                  Active
+                <Badge variant="outline" className="text-xs text-green-600 border-green-600 bg-green-50 font-medium">
+                  🔥 Active
                 </Badge>
               )}
             </div>
