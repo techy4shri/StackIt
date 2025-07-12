@@ -20,8 +20,6 @@ const navigation = [
 ]
 
 const watching = [
-  { name: 'javascript', count: 1247 },
-  { name: 'react', count: 892 },
   { name: 'typescript', count: 654 },
   { name: 'next.js', count: 432 },
   { name: 'node.js', count: 321 },
@@ -157,19 +155,9 @@ export default function Sidebar() {
                 <TrendingUp className="h-4 w-4 text-orange-500" />
               </div>
               <div className="space-y-3">
+                
                 <Link
                   href="/questions/123"
-                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  <div className="flex items-start gap-2 p-2 rounded-lg hover:bg-orange-50/50">
-                    <TrendingUp className="mt-0.5 h-3 w-3 text-orange-500 flex-shrink-0" />
-                    <span className="line-clamp-2 font-medium">
-                      How to optimize React performance in large applications?
-                    </span>
-                  </div>
-                </Link>
-                <Link
-                  href="/questions/124"
                   className="block text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   <div className="flex items-start gap-2 p-2 rounded-lg hover:bg-orange-50/50">
@@ -180,13 +168,24 @@ export default function Sidebar() {
                   </div>
                 </Link>
                 <Link
-                  href="/questions/125"
+                  href="/questions/124"
                   className="block text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   <div className="flex items-start gap-2 p-2 rounded-lg hover:bg-orange-50/50">
                     <TrendingUp className="mt-0.5 h-3 w-3 text-orange-500 flex-shrink-0" />
                     <span className="line-clamp-2 font-medium">
                       Database design patterns for scalable apps
+                    </span>
+                  </div>
+                </Link>
+                <Link
+                  href="/questions/125"
+                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+                >
+                  <div className="flex items-start gap-2 p-2 rounded-lg hover:bg-orange-50/50">
+                    <TrendingUp className="mt-0.5 h-3 w-3 text-orange-500 flex-shrink-0" />
+                    <span className="line-clamp-2 font-medium">
+                      How to optimize React performance in large applications?
                     </span>
                   </div>
                 </Link>

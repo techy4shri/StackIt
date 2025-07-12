@@ -67,9 +67,10 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="mb-8">
+    <div className="min-h-screen w-full bg-white">
+      <div className="space-y-6 p-6">
+        {/* Header */}
+        <div className="mb-8">
           <div className="flex items-center space-x-4 mb-4">
             <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
               {user.firstName?.[0] || user.emailAddresses[0]?.emailAddress[0] || 'U'}
@@ -79,13 +80,15 @@ export default function DashboardPage() {
                 <h1 className="text-3xl font-bold text-gray-900">
                   Welcome back, {user.firstName || 'Developer'}!
                 </h1>
-                <Badge 
-                  variant={isAdmin ? "destructive" : "secondary"} 
-                  className={`${isAdmin ? 'bg-red-100 text-red-800' : ''} capitalize`}
-                >
-                  {isAdmin && <Shield className="h-3 w-3 mr-1" />}
-                  {role}
-                </Badge>
+                {isAdmin && (
+                  <Badge 
+                    variant="destructive" 
+                    className="bg-red-100 text-red-800 capitalize"
+                  >
+                    <Shield className="h-3 w-3 mr-1" />
+                    Admin
+                  </Badge>
+                )}
               </div>
               <p className="text-gray-600">
                 Member since {new Date(user.createdAt || Date.now()).toLocaleDateString()}
@@ -253,5 +256,6 @@ export default function DashboardPage() {
           </Card>
         </div>
       </div>
+    </div>
   )
 }
