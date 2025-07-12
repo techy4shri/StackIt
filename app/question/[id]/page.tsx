@@ -98,23 +98,6 @@ export default function QuestionPage({ params }: QuestionPageProps) {
     }
   }
 
-  const handleVoteAnswer = async (answerId: string, voteType: 'up' | 'down') => {
-    if (!isSignedIn) return
-    
-    try {
-      await fetch(`/api/answers/${answerId}/vote`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ voteType }),
-      })
-      fetchQuestion()
-    } catch (error) {
-      console.error('Error voting:', error)
-    }
-  }
-
   const handleAcceptAnswer = async (answerId: string) => {
     if (!isSignedIn) return
     

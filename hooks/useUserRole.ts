@@ -1,7 +1,7 @@
 'use client'
 
 import { useUser } from '@clerk/nextjs'
-import { UserRole, getUserRole, getPermissions, Permissions } from '@/lib/roles'
+import { UserRole, getUserRole, getPermissions } from '@/lib/roles'
 
 export function useUserRole() {
   const { user, isLoaded } = useUser()
