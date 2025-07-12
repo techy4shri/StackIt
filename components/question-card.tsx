@@ -27,30 +27,30 @@ export default function QuestionCard({ question }: QuestionCardProps) {
 
   return (
     <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary">
-      <CardContent className="p-6">
-        <div className="flex gap-6">
+      <CardContent className="p-3 sm:p-4 lg:p-6">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
           {/* Stats Column */}
-          <div className="flex flex-col items-center space-y-3 text-sm text-muted-foreground min-w-[80px]">
+          <div className="flex sm:flex-col items-center justify-center sm:justify-start space-x-3 sm:space-x-0 sm:space-y-3 text-sm text-muted-foreground min-w-0 sm:min-w-[80px]">
             <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-muted/50 to-muted/20">
-              <span className="font-bold text-lg text-foreground">{question.votes || 0}</span>
+              <span className="font-bold text-base sm:text-lg text-foreground">{question.votes || 0}</span>
               <span className="text-xs font-medium">votes</span>
             </div>
             <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-green-50 to-green-100/20">
-              <span className="font-bold text-lg text-green-700">{answerCount}</span>
+              <span className="font-bold text-base sm:text-lg text-green-700">{answerCount}</span>
               <span className="text-xs font-medium text-green-600">answers</span>
             </div>
             <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-blue-50 to-blue-100/20">
-              <span className="font-bold text-lg text-blue-700">{Math.floor(Math.random() * 100)}</span>
+              <span className="font-bold text-base sm:text-lg text-blue-700">{Math.floor(Math.random() * 100)}</span>
               <span className="text-xs font-medium text-blue-600">views</span>
             </div>
           </div>
 
           {/* Content Column */}
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-3 min-w-0">
             {/* Title */}
             <Link 
               href={`/question/${question._id}`}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors line-clamp-2"
+              className="text-base sm:text-lg font-medium text-foreground hover:text-primary transition-colors line-clamp-2 block"
             >
               {question.title}
             </Link>
@@ -64,7 +64,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
             />
             
             {/* Tags */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {question.tags?.map((tag, index) => (
                 <Badge 
                   key={index} 
@@ -77,18 +77,18 @@ export default function QuestionCard({ question }: QuestionCardProps) {
             </div>
             
             {/* Author and Time */}
-            <div className="flex items-center justify-between pt-2">
+            <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between pt-2 gap-2">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <User className="h-4 w-4" />
-                <span>{question.authorName || 'Anonymous'}</span>
-                <span>•</span>
-                <Clock className="h-4 w-4" />
-                <span>{timeAgo(question.createdAt)}</span>
+                <User className="h-4 w-4 flex-shrink-0" />
+                <span className="truncate">{question.authorName || 'Anonymous'}</span>
+                <span className="hidden xs:inline">•</span>
+                <Clock className="h-4 w-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">{timeAgo(question.createdAt)}</span>
               </div>
               
               {/* Random activity badge for demo */}
               {Math.random() > 0.7 && (
-                <Badge variant="outline" className="text-xs text-green-600 border-green-600 bg-green-50 font-medium">
+                <Badge variant="outline" className="text-xs text-green-600 border-green-600 bg-green-50 font-medium flex-shrink-0">
                   🔥 Active
                 </Badge>
               )}
