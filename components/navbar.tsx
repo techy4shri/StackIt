@@ -110,7 +110,7 @@ export default function Navbar() {
             ) : (
               <>
                 <Link href="/auth?mode=signin">
-                  <Button variant="ghost" className="btn-modern text-sm">
+                  <Button variant="outline" className="StackIt-gradient text-white hover:opacity-90 btn-modern text-sm border-0">
                     <span className="hidden xs:inline">Log in</span>
                     <span className="xs:hidden">Login</span>
                   </Button>

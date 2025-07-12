@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import RichTextEditor from '@/components/rich-text-editor'
 import AnswerCard from '@/components/answer-card'
 import { Question, Answer } from '@/lib/types'
-import { ThumbsUp, ThumbsDown, User, MessageSquare } from 'lucide-react'
+import { ThumbsUp, ThumbsDown, User, MessageSquare, AlertTriangle } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,7 +17,7 @@ interface QuestionPageProps {
 }
 
 export default function QuestionPage({ params }: QuestionPageProps) {
-  const { isSignedIn } = useAuth()
+  const { isSignedIn, userId } = useAuth()
   const [question, setQuestion] = useState<Question | null>(null)
   const [answers, setAnswers] = useState<Answer[]>([])
   const [newAnswer, setNewAnswer] = useState('')
@@ -25,6 +25,9 @@ export default function QuestionPage({ params }: QuestionPageProps) {
   const [isVoting, setIsVoting] = useState(false)
   const [userVote, setUserVote] = useState<'up' | 'down' | null>(null)
   const [id, setId] = useState<string>('')
+  const [submitAttempts, setSubmitAttempts] = useState(0)
+  const [showWarning, setShowWarning] = useState(false)
+  const [userHasAnswered, setUserHasAnswered] = useState(false)
 
   useEffect(() => {
     const initParams = async () => {
@@ -44,31 +47,47 @@ export default function QuestionPage({ params }: QuestionPageProps) {
     }
   }, [id])
 
-  const fetchQuestion = useCallback(async () => {
+  const fetchQuestion = useCallback(async (skipVoteCheck = false) => {
     if (!id) return
     try {
-      const response = await fetch(`/api/questions/${id}`)
+      const response = await fetch(`/api/questions/${id}`, {
+        next: { revalidate: 60 } // Cache for 1 minute
+      })
       const data = await response.json()
       setQuestion(data.question)
       setAnswers(data.answers || [])
       
-      // Also fetch user's vote status
-      if (isSignedIn) {
-        const voteResponse = await fetch(`/api/questions/${id}/vote`)
-        const voteData = await voteResponse.json()
-        setUserVote(voteData.vote)
-        
-        // Sync with localStorage
-        if (voteData.vote) {
-          localStorage.setItem(`question_vote_${id}`, voteData.vote)
-        } else {
-          localStorage.removeItem(`question_vote_${id}`)
+      // Check if current user has already answered
+      if (isSignedIn && data.answers) {
+        const userAnswer = data.answers.find((answer: Answer) => answer.authorId === userId)
+        setUserHasAnswered(!!userAnswer)
+      }
+      
+      // Only fetch vote status on initial load or when explicitly requested
+      if (isSignedIn && !skipVoteCheck) {
+        try {
+          const voteResponse = await fetch(`/api/questions/${id}/vote`, {
+            next: { revalidate: 300 } // Cache for 5 minutes
+          })
+          if (voteResponse.ok) {
+            const voteData = await voteResponse.json()
+            setUserVote(voteData.vote)
+            
+            // Sync with localStorage
+            if (voteData.vote) {
+              localStorage.setItem(`question_vote_${id}`, voteData.vote)
+            } else {
+              localStorage.removeItem(`question_vote_${id}`)
+            }
+          }
+        } catch (voteError) {
+          console.error('Error fetching vote status:', voteError)
         }
       }
     } catch (error) {
       console.error('Error fetching question:', error)
     }
-  }, [id, isSignedIn])
+  }, [id, isSignedIn, userId])
 
   useEffect(() => {
     fetchQuestion()
@@ -78,6 +97,25 @@ export default function QuestionPage({ params }: QuestionPageProps) {
     e.preventDefault()
     
     if (!newAnswer.trim() || !isSignedIn || !id) return
+
+    // Check if user already has an answer
+    if (userHasAnswered) {
+      alert('You have already submitted an answer to this question. You can edit your existing answer instead.')
+      return
+    }
+
+    // Increment submit attempts
+    const newAttempts = submitAttempts + 1
+    setSubmitAttempts(newAttempts)
+
+    // Show warning after 2 attempts
+    if (newAttempts >= 2) {
+      setShowWarning(true)
+      if (newAttempts > 2) {
+        alert('Warning: You have attempted to submit multiple times. Please ensure your answer is complete before submitting.')
+        return
+      }
+    }
 
     setIsSubmitting(true)
     
@@ -94,10 +132,22 @@ export default function QuestionPage({ params }: QuestionPageProps) {
 
       if (response.ok) {
         setNewAnswer('')
-        fetchQuestion()
+        setSubmitAttempts(0)
+        setShowWarning(false)
+        // Only refresh question data, skip vote check since it's not needed
+        fetchQuestion(true)
+      } else {
+        const errorData = await response.json()
+        if (response.status === 409) {
+          alert('You have already answered this question.')
+          setUserHasAnswered(true)
+        } else {
+          alert(errorData.error || 'Failed to submit answer')
+        }
       }
     } catch (error) {
       console.error('Error submitting answer:', error)
+      alert('Failed to submit answer. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -251,31 +301,58 @@ export default function QuestionPage({ params }: QuestionPageProps) {
             answer={answer}
             questionAuthorId={question.authorId}
             onAccept={handleAcceptAnswer}
+            onUpdate={fetchQuestion}
           />
         ))}
 
         {/* Submit Answer Form */}
         {isSignedIn ? (
-          <Card style={{ backgroundColor: '#FFFBF9' }}>
-            <CardHeader>
-              <CardTitle>Your Answer</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmitAnswer} className="space-y-4">
-                <RichTextEditor
-                  content={newAnswer}
-                  onChange={setNewAnswer}
-                />
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting || !newAnswer.trim()}
-                  className="bg-orange-500 hover:bg-orange-600 text-white"
-                >
-                  {isSubmitting ? 'Submitting...' : 'Submit Answer'}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          userHasAnswered ? (
+            <Card style={{ backgroundColor: '#FFFBF9' }}>
+              <CardContent className="text-center py-8">
+                <p className="text-muted-foreground mb-4">
+                  You have already submitted an answer to this question.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  You can edit your existing answer using the Edit button.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card style={{ backgroundColor: '#FFFBF9' }}>
+              <CardHeader>
+                <CardTitle>Your Answer</CardTitle>
+                {showWarning && (
+                  <div className="flex items-center gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                    <p className="text-sm text-yellow-800">
+                      Warning: Multiple submission attempts detected. Please review your answer carefully before submitting.
+                    </p>
+                  </div>
+                )}
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmitAnswer} className="space-y-4">
+                  <RichTextEditor
+                    content={newAnswer}
+                    onChange={setNewAnswer}
+                  />
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting || !newAnswer.trim()}
+                    className="bg-orange-500 hover:bg-orange-600 text-white"
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Answer'}
+                  </Button>
+                  {submitAttempts > 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      Submission attempts: {submitAttempts}
+                    </p>
+                  )}
+                </form>
+              </CardContent>
+            </Card>
+          )
         ) : (
           <Card style={{ backgroundColor: '#FFFBF9' }}>
             <CardContent className="text-center py-8">

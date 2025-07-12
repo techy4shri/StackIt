@@ -29,6 +29,19 @@ export async function POST(
     const client = await clientPromise
     const db = client.db('stackit')
     
+    // Checking if user has already answered this question
+    const existingAnswer = await db.collection('answers').findOne({
+      questionId: id,
+      authorId: userId
+    })
+    
+    if (existingAnswer) {
+      return NextResponse.json(
+        { error: 'You have already submitted an answer to this question' },
+        { status: 409 }
+      )
+    }
+    
     const answer: Omit<Answer, '_id'> = {
       questionId: id,
       content,

@@ -148,9 +148,6 @@ export default function Sidebar() {
         <div className="flex justify-between items-center p-3 border-b">
           {!isCollapsed && (
             <div className="flex items-center space-x-2">
-              <div className="StackIt-gradient flex h-6 w-6 items-center justify-center rounded text-white font-bold text-sm">
-                S
-              </div>
               <span className="text-lg font-bold text-foreground">Menu</span>
             </div>
           )}

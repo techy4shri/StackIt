@@ -22,14 +22,6 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen flex flex-col items-center p-4 bg-gradient-to-br from-background via-background to-orange-50/20">
       <div className="w-full max-w-sm sm:max-w-md md:max-w-lg px-3 sm:px-4 mx-auto">
-        <div className="text-center mb-3">
-          <div className="StackIt-gradient mx-auto flex h-8 w-8 items-center justify-center rounded-lg text-white font-bold text-base mb-2 shadow-lg">
-            S
-          </div>
-          <h1 className="text-lg font-bold text-foreground">
-            {isSignIn ? 'Welcome back' : 'Join StackIt'}
-          </h1>
-        </div>
 
         {/* Toggle Buttons */}
         <div className="flex gap-2 mb-3">
@@ -58,27 +50,21 @@ export default function AuthPage() {
           >
             {/* Sign In */}
             <div className="absolute inset-0 w-full backface-hidden">
-              <div className="bg-card/95 backdrop-blur-sm p-0 sm:p-2 max-w-[480px] w-full mx-auto rounded-xl border border-border shadow-md">
+              <div className="bg-card p-4 sm:p-6 rounded-xl border border-border shadow-lg backdrop-blur-sm w-full">
                 <SignIn
                   forceRedirectUrl="/dashboard"
                   signUpUrl="/auth?mode=signup"
                   appearance={{
                     elements: {
-                      rootBox: "w-full max-w-full",
-                      card: "w-full max-w-full bg-w-full shadow-none border-none p-0",
-                      form: "!space-y-4 !pt-0 !mt-0",
+                      rootBox: "w-full",
+                      card: "w-full bg-transparent shadow-none border-0 p-0",
+                      form: "space-y-4",
                       formField: "w-full",
-                      formFieldInput: "text-sm h-10 w-full",
+                      formFieldInput: "text-sm h-10",
                       formFieldLabel: "text-sm font-medium",
-                      header: "hidden",
-                      headerTitle: "hidden",
-                      headerSubtitle: "hidden",
-                      socialButtonsBlockButton: "border-border hover:bg-accent text-sm h-10 w-full",
-                      socialButtonsBlockButtonText: "text-sm font-medium",
-                      formButtonPrimary: "StackIt-gradient hover:opacity-90 text-sm h-10 w-full",
-                      footerActionLink: "text-primary hover:text-primary/90 text-sm",
-                      footer: "mt-4 text-center",
-                      dividerRow: "!my-2"
+                      socialButtonsBlockButton: "border-border hover:bg-accent text-sm h-10",
+                      formButtonPrimary: "StackIt-gradient hover:opacity-90 text-sm h-10",
+                      footerActionLink: "text-primary hover:text-primary/90 text-sm"
                     }
                   }}
                 />
@@ -90,26 +76,21 @@ export default function AuthPage() {
               className="absolute inset-0 w-full backface-hidden"
               style={{ transform: "rotateY(180deg)" }}
             >
-              <div className="bg-card/95 backdrop-blur-sm p-0 sm:p-2 max-w-[480px] w-full mx-auto rounded-xl border border-border shadow-md">
+              <div className="bg-card p-4 sm:p-6 rounded-xl border border-border shadow-lg backdrop-blur-sm w-full">
                 <SignUp
                   forceRedirectUrl="/dashboard"
                   signInUrl="/auth?mode=signin"
                   appearance={{
                     elements: {
-                      rootBox: "w-full max-w-full",
-                      card: "w-full max-w-full bg-transparent shadow-none border-none p-0",
-                      form: "!space-y-4 !pt-0 !mt-0",
+                      rootBox: "w-full",
+                      card: "w-full bg-transparent shadow-none border-0 p-0",
+                      form: "space-y-4",
                       formField: "w-full",
-                      formFieldInput: "text-sm h-10 w-full",
+                      formFieldInput: "text-sm h-10",
                       formFieldLabel: "text-sm font-medium",
-                      header: "hidden",
-                      headerTitle: "hidden",
-                      headerSubtitle: "hidden",
-                      socialButtonsBlockButton: "border-border hover:bg-accent text-sm h-10 w-full",
-                      socialButtonsBlockButtonText: "text-sm font-medium",
-                      formButtonPrimary: "StackIt-gradient hover:opacity-90 text-sm h-10 w-full",
-                      footerActionLink: "text-primary hover:text-primary/90 text-sm",
-                      footer: "mt-4 text-center"
+                      socialButtonsBlockButton: "border-border hover:bg-accent text-sm h-10",
+                      formButtonPrimary: "StackIt-gradient hover:opacity-90 text-sm h-10",
+                      footerActionLink: "text-primary hover:text-primary/90 text-sm"
                     }
                   }}
                 />
