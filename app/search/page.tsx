@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -8,19 +8,13 @@ import QuestionCard from '@/components/question-card'
 import { Question } from '@/lib/types'
 import { Search } from 'lucide-react'
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams()
   const [query, setQuery] = useState(searchParams.get('q') || '')
   const [questions, setQuestions] = useState<Question[]>([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (query) {
-      searchQuestions()
-    }
-  }, [])
-
-  const searchQuestions = async () => {
+  const searchQuestions = useCallback(async () => {
     if (!query.trim()) return
     
     setLoading(true)
@@ -33,7 +27,13 @@ export default function SearchPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [query])
+
+  useEffect(() => {
+    if (query) {
+      searchQuestions()
+    }
+  }, [query, searchQuestions])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,7 +62,7 @@ export default function SearchPage() {
       {questions.length > 0 && (
         <div className="mb-4">
           <p className="text-muted-foreground">
-            Found {questions.length} result{questions.length !== 1 ? 's' : ''} for "{query}"
+            Found {questions.length} result{questions.length !== 1 ? 's' : ''} for &ldquo;{query}&rdquo;
           </p>
         </div>
       )}
@@ -81,5 +81,13 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
   )
 }

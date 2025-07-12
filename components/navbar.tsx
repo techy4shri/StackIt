@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useAuth, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Bell, Search, Plus } from 'lucide-react'
+import { Search, Plus } from 'lucide-react'
 import NotificationDropdown from '@/components/notification-dropdown' 
 
 export default function Navbar() {

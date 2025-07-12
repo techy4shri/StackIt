@@ -46,9 +46,9 @@ export async function POST(request: NextRequest) {
     const client = await clientPromise
     const db = client.db('stackit')
     
-    const firstName = (session as any).firstName || ''
-    const lastName = (session as any).lastName || ''
-    const imageUrl = (session as any).imageUrl || ''
+    const firstName = (session as { firstName?: string }).firstName || ''
+    const lastName = (session as { lastName?: string }).lastName || ''
+    const imageUrl = (session as { imageUrl?: string }).imageUrl || ''
 
     const question: Omit<Question, '_id'> = {
       title,

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Question } from '@/lib/types'
-import { MessageSquare, ThumbsUp, User, Clock } from 'lucide-react'
+import { MessageSquare, ThumbsUp, User } from 'lucide-react'
 
 interface QuestionCardProps {
   question: Question

@@ -8,7 +8,7 @@ async function getQuestions(): Promise<Question[]> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
     const response = await fetch(`${baseUrl}/api/questions`, {
-      cache: 'no-store'
+      next: { revalidate: 60 } // Revalidate every 60 seconds
     })
     if (!response.ok) return []
     const data = await response.json()

@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useAuth, useUser } from '@clerk/nextjs'
+import { useState, useEffect, useCallback } from 'react'
+import { useAuth } from '@clerk/nextjs'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -10,43 +10,55 @@ import AnswerCard from '@/components/answer-card'
 import { Question, Answer } from '@/lib/types'
 import { ThumbsUp, ThumbsDown, User, MessageSquare } from 'lucide-react'
 
+// Force dynamic rendering for authenticated features
+export const dynamic = 'force-dynamic'
+
 interface QuestionPageProps {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export default function QuestionPage({ params }: QuestionPageProps) {
   const { isSignedIn } = useAuth()
-const { user } = useUser()
   const [question, setQuestion] = useState<Question | null>(null)
   const [answers, setAnswers] = useState<Answer[]>([])
   const [newAnswer, setNewAnswer] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isVoting, setIsVoting] = useState(false)
+  const [id, setId] = useState<string>('')
 
   useEffect(() => {
-    fetchQuestion()
-  }, [params.id])
+    const initParams = async () => {
+      const resolvedParams = await params
+      setId(resolvedParams.id)
+    }
+    initParams()
+  }, [params])
 
-  const fetchQuestion = async () => {
+  const fetchQuestion = useCallback(async () => {
+    if (!id) return
     try {
-      const response = await fetch(`/api/questions/${params.id}`)
+      const response = await fetch(`/api/questions/${id}`)
       const data = await response.json()
       setQuestion(data.question)
       setAnswers(data.answers || [])
     } catch (error) {
       console.error('Error fetching question:', error)
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    fetchQuestion()
+  }, [fetchQuestion])
 
   const handleSubmitAnswer = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!newAnswer.trim() || !isSignedIn) return
+    if (!newAnswer.trim() || !isSignedIn || !id) return
 
     setIsSubmitting(true)
     
     try {
-      const response = await fetch(`/api/questions/${params.id}/answers`, {
+      const response = await fetch(`/api/questions/${id}/answers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,11 +80,11 @@ const { user } = useUser()
   }
 
   const handleVoteQuestion = async (voteType: 'up' | 'down') => {
-    if (!isSignedIn || isVoting) return
+    if (!isSignedIn || isVoting || !id) return
     
     setIsVoting(true)
     try {
-      await fetch(`/api/questions/${params.id}/vote`, {
+      await fetch(`/api/questions/${id}/vote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

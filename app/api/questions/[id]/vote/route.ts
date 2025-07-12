@@ -5,7 +5,7 @@ import clientPromise from '@/lib/mongodb'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -23,13 +23,15 @@ export async function POST(
       )
     }
 
+    const { id } = await params
+
     const client = await clientPromise
     const db = client.db('stackit')
     
     // Check if user already voted
     const existingVote = await db.collection('votes').findOne({
       userId,
-      targetId: params.id,
+      targetId: id,
       targetType: 'question',
     })
 
@@ -40,7 +42,7 @@ export async function POST(
         
         const increment = voteType === 'up' ? -1 : 1
         await db.collection('questions').updateOne(
-          { _id: new ObjectId(params.id) },
+          { _id: new ObjectId(id) },
           { $inc: { votes: increment } }
         )
       } else {
@@ -52,7 +54,7 @@ export async function POST(
         
         const increment = voteType === 'up' ? 2 : -2
         await db.collection('questions').updateOne(
-          { _id: new ObjectId(params.id) },
+          { _id: new ObjectId(id) },
           { $inc: { votes: increment } }
         )
       }
@@ -60,7 +62,7 @@ export async function POST(
       // Create new vote
       await db.collection('votes').insertOne({
         userId,
-        targetId: params.id,
+        targetId: id,
         targetType: 'question',
         voteType,
         createdAt: new Date(),
@@ -68,7 +70,7 @@ export async function POST(
       
       const increment = voteType === 'up' ? 1 : -1
       await db.collection('questions').updateOne(
-        { _id: new ObjectId(params.id) },
+        { _id: new ObjectId(id) },
         { $inc: { votes: increment } }
       )
     }

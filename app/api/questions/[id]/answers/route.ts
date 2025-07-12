@@ -6,7 +6,7 @@ import { ObjectId } from 'mongodb'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -25,11 +25,12 @@ export async function POST(
       )
     }
 
+    const { id } = await params
     const client = await clientPromise
     const db = client.db('stackit')
     
     const answer: Omit<Answer, '_id'> = {
-      questionId: params.id,
+      questionId: id,
       content,
       authorId: userId,
       authorName: user?.firstName + ' ' + user?.lastName || 'Anonymous',
@@ -43,7 +44,7 @@ export async function POST(
     
     // Create notification for question author
     const question = await db.collection('questions').findOne({ 
-      _id: new ObjectId(params.id) 
+      _id: new ObjectId(id) 
     })
     
     if (question && question.authorId !== userId) {
@@ -53,7 +54,7 @@ export async function POST(
         message: `${answer.authorName} answered your question: ${question.title}`,
         read: false,
         createdAt: new Date(),
-        relatedId: params.id,
+        relatedId: id,
       })
     }
     

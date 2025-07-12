@@ -5,7 +5,7 @@ import clientPromise from '@/lib/mongodb'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -14,12 +14,13 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const { id } = await params
     const client = await clientPromise
     const db = client.db('stackit')
     
     // Get the answer to find the question
     const answer = await db.collection('answers').findOne({
-      _id: new ObjectId(params.id)
+      _id: new ObjectId(id)
     })
     
     if (!answer) {
@@ -49,7 +50,7 @@ export async function POST(
     
     // Set this answer as accepted
     await db.collection('answers').updateOne(
-      { _id: new ObjectId(params.id) },
+      { _id: new ObjectId(id) },
       { $set: { isAccepted: true } }
     )
     

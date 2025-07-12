@@ -4,15 +4,16 @@ import clientPromise from '@/lib/mongodb'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const client = await clientPromise
     const db = client.db('stackit')
     
     const question = await db
       .collection('questions')
-      .findOne({ _id: new ObjectId(params.id) })
+      .findOne({ _id: new ObjectId(id) })
     
     if (!question) {
       return NextResponse.json(
@@ -23,7 +24,7 @@ export async function GET(
 
     const answers = await db
       .collection('answers')
-      .find({ questionId: params.id })
+      .find({ questionId: id })
       .sort({ isAccepted: -1, votes: -1, createdAt: 1 })
       .toArray()
 
