@@ -5,6 +5,8 @@ import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import TextAlign from '@tiptap/extension-text-align'
+import { Mention } from './editor/mention-extension'
+import suggestion from './editor/mention-suggestion'
 import { Button } from '@/components/ui/button'
 import { 
   Bold, 
@@ -17,7 +19,8 @@ import {
   AlignLeft,
   AlignCenter,
   AlignRight,
-  Smile
+  Smile,
+  AtSign
 } from 'lucide-react'
 
 interface RichTextEditorProps {
@@ -35,6 +38,12 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       }),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
+      }),
+      Mention.configure({
+        HTMLAttributes: {
+          class: 'mention',
+        },
+        suggestion,
       }),
     ],
     content,
@@ -66,6 +75,10 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
     if (emoji) {
       editor.chain().focus().insertContent(emoji).run()
     }
+  }
+
+  const addMention = () => {
+    editor.chain().focus().insertContent('@').run()
   }
 
   return (
@@ -155,6 +168,14 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
           onClick={addEmoji}
         >
           <Smile className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={addMention}
+          title="Mention someone with @"
+        >
+          <AtSign className="h-4 w-4" />
         </Button>
       </div>
       <EditorContent editor={editor} />

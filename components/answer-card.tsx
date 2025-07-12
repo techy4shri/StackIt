@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Answer } from '@/lib/types'
-import { ThumbsUp, ThumbsDown, Check, User } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Answer, Comment } from '@/lib/types'
+import { ThumbsUp, ThumbsDown, Check, User, MessageSquare, Send } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { sendMentionNotifications } from '@/lib/mentions'
 
 interface AnswerCardProps {
   answer: Answer
@@ -23,6 +25,57 @@ export default function AnswerCard({
 }: AnswerCardProps) {
   const { userId } = useAuth()
   const [isVoting, setIsVoting] = useState(false)
+  const [showComments, setShowComments] = useState(false)
+  const [comments, setComments] = useState<Comment[]>([])
+  const [newComment, setNewComment] = useState('')
+  const [isSubmittingComment, setIsSubmittingComment] = useState(false)
+
+  useEffect(() => {
+    if (showComments) {
+      fetchComments()
+    }
+  }, [showComments])
+
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(`/api/answers/${answer._id}/comments`)
+      const data = await response.json()
+      setComments(data.comments || [])
+    } catch (error) {
+      console.error('Error fetching comments:', error)
+    }
+  }
+
+  const handleSubmitComment = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!newComment.trim() || !userId || isSubmittingComment) return
+
+    setIsSubmittingComment(true)
+    
+    try {
+      const response = await fetch(`/api/answers/${answer._id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: newComment.trim(),
+        }),
+      })
+
+      if (response.ok) {
+        setNewComment('')
+        fetchComments()
+        // Send mention notifications
+        await sendMentionNotifications(newComment.trim(), 'comment')
+      }
+    } catch (error) {
+      console.error('Error submitting comment:', error)
+    } finally {
+      setIsSubmittingComment(false)
+    }
+  }
 
   const handleVote = async (voteType: 'up' | 'down') => {
     if (!userId || isVoting) return
@@ -88,18 +141,72 @@ export default function AnswerCard({
             </Button>
           </div>
           
-          {userId === questionAuthorId && !answer.isAccepted && (
+          <div className="flex items-center space-x-2">
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              onClick={handleAccept}
-              className="text-green-600 border-green-600 hover:bg-green-50"
+              onClick={() => setShowComments(!showComments)}
+              className="text-muted-foreground hover:text-foreground"
             >
-              <Check className="h-4 w-4 mr-1" />
-              Accept Answer
+              <MessageSquare className="h-4 w-4 mr-1" />
+              {comments.length > 0 ? `${comments.length} Comments` : 'Add Comment'}
             </Button>
-          )}
+            
+            {userId === questionAuthorId && !answer.isAccepted && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleAccept}
+                className="text-green-600 border-green-600 hover:bg-green-50"
+              >
+                <Check className="h-4 w-4 mr-1" />
+                Accept Answer
+              </Button>
+            )}
+          </div>
         </div>
+        
+        {/* Comments Section */}
+        {showComments && (
+          <div className="mt-4 pt-4 border-t space-y-3">
+            {/* Existing Comments */}
+            {comments.map((comment) => (
+              <div key={comment._id?.toString()} className="flex space-x-3 text-sm">
+                <User className="h-4 w-4 mt-0.5 text-muted-foreground" />
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-medium">{comment.authorName}</span>
+                    <span className="text-muted-foreground">
+                      {new Date(comment.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="text-muted-foreground mt-1">{comment.content}</p>
+                </div>
+              </div>
+            ))}
+            
+            {/* Add Comment Form */}
+            {userId && (
+              <form onSubmit={handleSubmitComment} className="flex space-x-2">
+                <Input
+                  type="text"
+                  placeholder="Add a comment..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  className="flex-1 text-sm"
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  disabled={!newComment.trim() || isSubmittingComment}
+                  className="StackIt-gradient text-white"
+                >
+                  <Send className="h-3 w-3" />
+                </Button>
+              </form>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   )
