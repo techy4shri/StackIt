@@ -82,7 +82,7 @@ export default function AnswerCard({
   }
 
   return (
-    <Card className={`${answer.isAccepted ? 'border-green-500 bg-green-50' : ''}`}>
+    <Card className={`${answer.isAccepted ? 'border-green-500 bg-green-50' : ''}`} style={!answer.isAccepted ? { backgroundColor: '#FFFBF9' } : undefined}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">

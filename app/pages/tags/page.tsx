@@ -117,9 +117,23 @@ export default function TagsPage() {
   })
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col space-y-4">
+    <div className="min-h-screen w-full bg-white relative text-gray-800">
+      {/* Concentric Squares - Light Pattern */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(75, 85, 99, 0.06) 5px, rgba(75, 85, 99, 0.06) 6px, transparent 6px, transparent 15px),
+            repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(75, 85, 99, 0.06) 5px, rgba(75, 85, 99, 0.06) 6px, transparent 6px, transparent 15px),
+            repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(107, 114, 128, 0.04) 10px, rgba(107, 114, 128, 0.04) 11px, transparent 11px, transparent 30px),
+            repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(107, 114, 128, 0.04) 10px, rgba(107, 114, 128, 0.04) 11px, transparent 11px, transparent 30px)
+          `,
+        }}
+      />
+      
+      <div className="relative z-10 space-y-6 p-6">
+        {/* Header */}
+        <div className="flex flex-col space-y-4">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Tags</h1>
           <p className="text-muted-foreground mt-1">
@@ -249,6 +263,7 @@ export default function TagsPage() {
       <div className="text-center text-sm text-muted-foreground">
         Showing {sortedTags.length} of {popularTags.length} tags
         {searchQuery && ` matching "${searchQuery}"`}
+      </div>
       </div>
     </div>
   )

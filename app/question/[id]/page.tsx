@@ -23,6 +23,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
   const [newAnswer, setNewAnswer] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isVoting, setIsVoting] = useState(false)
+  const [userVote, setUserVote] = useState<'up' | 'down' | null>(null)
   const [id, setId] = useState<string>('')
 
   useEffect(() => {
@@ -33,6 +34,16 @@ export default function QuestionPage({ params }: QuestionPageProps) {
     initParams()
   }, [params])
 
+  // Load user vote from localStorage
+  useEffect(() => {
+    if (id) {
+      const savedVote = localStorage.getItem(`question_vote_${id}`)
+      if (savedVote === 'up' || savedVote === 'down') {
+        setUserVote(savedVote)
+      }
+    }
+  }, [id])
+
   const fetchQuestion = useCallback(async () => {
     if (!id) return
     try {
@@ -40,10 +51,24 @@ export default function QuestionPage({ params }: QuestionPageProps) {
       const data = await response.json()
       setQuestion(data.question)
       setAnswers(data.answers || [])
+      
+      // Also fetch user's vote status
+      if (isSignedIn) {
+        const voteResponse = await fetch(`/api/questions/${id}/vote`)
+        const voteData = await voteResponse.json()
+        setUserVote(voteData.vote)
+        
+        // Sync with localStorage
+        if (voteData.vote) {
+          localStorage.setItem(`question_vote_${id}`, voteData.vote)
+        } else {
+          localStorage.removeItem(`question_vote_${id}`)
+        }
+      }
     } catch (error) {
       console.error('Error fetching question:', error)
     }
-  }, [id])
+  }, [id, isSignedIn])
 
   useEffect(() => {
     fetchQuestion()
@@ -81,16 +106,43 @@ export default function QuestionPage({ params }: QuestionPageProps) {
   const handleVoteQuestion = async (voteType: 'up' | 'down') => {
     if (!isSignedIn || isVoting || !id) return
     
+    // Check if user is trying to vote the same way again
+    if (userVote === voteType) {
+      // Remove vote (toggle off)
+      setIsVoting(true)
+      try {
+        await fetch(`/api/questions/${id}/vote`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        setUserVote(null)
+        localStorage.removeItem(`question_vote_${id}`)
+        fetchQuestion()
+      } catch (error) {
+        console.error('Error removing vote:', error)
+      } finally {
+        setIsVoting(false)
+      }
+      return
+    }
+    
     setIsVoting(true)
     try {
-      await fetch(`/api/questions/${id}/vote`, {
+      const response = await fetch(`/api/questions/${id}/vote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ voteType }),
       })
-      fetchQuestion()
+      
+      if (response.ok) {
+        setUserVote(voteType)
+        localStorage.setItem(`question_vote_${id}`, voteType)
+        fetchQuestion()
+      }
     } catch (error) {
       console.error('Error voting:', error)
     } finally {
@@ -122,7 +174,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Question Card */}
-      <Card className="mb-8">
+      <Card className="mb-8" style={{ backgroundColor: '#FFFBF9' }}>
         <CardHeader>
           <div className="flex items-start justify-between">
             <CardTitle className="text-2xl">{question.title}</CardTitle>
@@ -148,20 +200,29 @@ export default function QuestionPage({ params }: QuestionPageProps) {
           <div className="flex items-center justify-between pt-4 border-t">
             <div className="flex items-center space-x-2">
               <Button
-                variant="outline"
+                variant={userVote === 'up' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => handleVoteQuestion('up')}
                 disabled={!isSignedIn || isVoting}
-                className="flex items-center space-x-1"
+                className={`flex items-center space-x-1 ${
+                  userVote === 'up' 
+                    ? 'bg-green-500 hover:bg-green-600 text-white' 
+                    : 'hover:bg-green-50 hover:text-green-600 hover:border-green-300'
+                }`}
               >
                 <ThumbsUp className="h-4 w-4" />
                 <span>{question.votes}</span>
               </Button>
               <Button
-                variant="outline"
+                variant={userVote === 'down' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => handleVoteQuestion('down')}
                 disabled={!isSignedIn || isVoting}
+                className={`${
+                  userVote === 'down' 
+                    ? 'bg-red-500 hover:bg-red-600 text-white' 
+                    : 'hover:bg-red-50 hover:text-red-600 hover:border-red-300'
+                }`}
               >
                 <ThumbsDown className="h-4 w-4" />
               </Button>
@@ -195,7 +256,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
 
         {/* Submit Answer Form */}
         {isSignedIn ? (
-          <Card>
+          <Card style={{ backgroundColor: '#FFFBF9' }}>
             <CardHeader>
               <CardTitle>Your Answer</CardTitle>
             </CardHeader>
@@ -208,6 +269,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
                 <Button 
                   type="submit" 
                   disabled={isSubmitting || !newAnswer.trim()}
+                  className="bg-orange-500 hover:bg-orange-600 text-white"
                 >
                   {isSubmitting ? 'Submitting...' : 'Submit Answer'}
                 </Button>
@@ -215,7 +277,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
             </CardContent>
           </Card>
         ) : (
-          <Card>
+          <Card style={{ backgroundColor: '#FFFBF9' }}>
             <CardContent className="text-center py-8">
               <p className="text-muted-foreground mb-4">
                 Please log in to post an answer
