@@ -66,20 +66,26 @@ export default function AuthPage() {
           >
             {/* Sign In Card */}
             <div className="absolute inset-0 w-full backface-hidden">
-              <div className="bg-card p-2 sm:p-3 rounded-lg shadow-lg border border-border backdrop-blur-sm min-h-[300px] flex flex-col justify-center">
-                <SignIn 
-                  appearance={{
-                    elements: {
-                      rootBox: "w-full",
-                      card: "bg-transparent shadow-none border-0 p-0",
-                      headerTitle: "hidden",
-                      headerSubtitle: "hidden",
-                      socialButtonsBlockButton: "border-border hover:bg-accent text-xs py-1",
-                      formButtonPrimary: "StackIt-gradient hover:opacity-90 py-1 text-xs",
-                      footerActionLink: "text-primary hover:text-primary/90 text-xs"
-                    }
-                  }}
-                />
+              <div className="bg-card p-2 sm:p-3 rounded-lg shadow-lg border border-border backdrop-blur-sm h-[400px] flex flex-col justify-center overflow-hidden">
+                <div className="overflow-y-auto max-h-full">
+                  <SignIn 
+                    forceRedirectUrl="/dashboard"
+                    signUpUrl="/auth?mode=signup"
+                    appearance={{
+                      elements: {
+                        rootBox: "w-full",
+                        card: "bg-transparent shadow-none border-0 p-0",
+                        headerTitle: "hidden",
+                        headerSubtitle: "hidden",
+                        socialButtonsBlockButton: "border-border hover:bg-accent text-xs py-1",
+                        formButtonPrimary: "StackIt-gradient hover:opacity-90 py-1 text-xs",
+                        footerActionLink: "text-primary hover:text-primary/90 text-xs",
+                        formFieldInput: "text-xs",
+                        formFieldLabel: "text-xs"
+                      }
+                    }}
+                  />
+                </div>
               </div>
             </div>
 
@@ -88,20 +94,26 @@ export default function AuthPage() {
               className="absolute inset-0 w-full backface-hidden"
               style={{ transform: "rotateY(180deg)" }}
             >
-              <div className="bg-card p-2 sm:p-3 rounded-lg shadow-lg border border-border backdrop-blur-sm min-h-[300px] flex flex-col justify-center">
-                <SignUp 
-                  appearance={{
-                    elements: {
-                      rootBox: "w-full",
-                      card: "bg-transparent shadow-none border-0 p-0",
-                      headerTitle: "hidden",
-                      headerSubtitle: "hidden",
-                      socialButtonsBlockButton: "border-border hover:bg-accent text-xs py-1",
-                      formButtonPrimary: "StackIt-gradient hover:opacity-90 py-1 text-xs",
-                      footerActionLink: "text-primary hover:text-primary/90 text-xs"
-                    }
-                  }}
-                />
+              <div className="bg-card p-2 sm:p-3 rounded-lg shadow-lg border border-border backdrop-blur-sm h-[400px] flex flex-col justify-center overflow-hidden">
+                <div className="overflow-y-auto max-h-full">
+                  <SignUp 
+                    forceRedirectUrl="/dashboard"
+                    signInUrl="/auth?mode=signin"
+                    appearance={{
+                      elements: {
+                        rootBox: "w-full",
+                        card: "bg-transparent shadow-none border-0 p-0",
+                        headerTitle: "hidden",
+                        headerSubtitle: "hidden",
+                        socialButtonsBlockButton: "border-border hover:bg-accent text-xs py-1",
+                        formButtonPrimary: "StackIt-gradient hover:opacity-90 py-1 text-xs",
+                        footerActionLink: "text-primary hover:text-primary/90 text-xs",
+                        formFieldInput: "text-xs",
+                        formFieldLabel: "text-xs"
+                      }
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </motion.div>

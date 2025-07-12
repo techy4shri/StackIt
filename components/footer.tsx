@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, Twitter, Mail, Heart } from 'lucide-react'
+import { Github, Mail, Heart, Linkedin } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -34,21 +34,25 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex space-x-3 sm:space-x-4">
               <Link 
-                href="https://github.com" 
+                href="https://github.com/techy4shri/StackIt" 
                 className="text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="GitHub"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Github className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
               <Link 
-                href="https://twitter.com" 
+                href="https://www.linkedin.com/in/garima-shrivastav/" 
                 className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Twitter"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Twitter className="h-4 w-4 sm:h-5 sm:w-5" />
+                <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
               <Link 
-                href="mailto:contact@stackit.com" 
+                href="mailto:sushri4tech@gmail.com" 
                 className="text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Email"
               >
@@ -63,7 +67,15 @@ export default function Footer() {
               <p>&copy; 2025 StackIt. All rights reserved.</p>
               <div className="flex items-center gap-1">
                 <span>Made with</span>
-                <Heart className="h-3 w-3 sm:h-4 sm:w-4 text-red-500 fill-current" />
+                <Link 
+                  href="https://github.com/sponsors/techy4shri"
+                  className="text-red-500 hover:text-red-600 transition-colors"
+                  aria-label="Sponsor this project"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Heart className="h-3 w-3 sm:h-4 sm:w-4 fill-current hover:scale-110 transition-transform" />
+                </Link>
                 <span>by developers, for developers</span>
               </div>
             </div>
