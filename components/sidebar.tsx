@@ -15,9 +15,9 @@ import {
 } from 'lucide-react'
 
 const navigation = [
-  { name: 'Home', href: '/pages/homepage', icon: Home },
-  { name: 'Questions', href: '/pages/questions', icon: MessageCircle },
-  { name: 'Tags', href: '/pages/tags', icon: Tags },
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Questions', href: '/questions', icon: MessageCircle },
+  { name: 'Tags', href: '/tags', icon: Tags },
 ]
 
 export default function Sidebar() {
@@ -187,7 +187,7 @@ export default function Sidebar() {
                   watchedTags.map((tag) => (
                     <Link
                       key={tag.name}
-                      href={`/pages/questions?tags=${tag.name}`}
+                      href={`/questions?tags=${tag.name}`}
                       className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105"
                     >
                       <span className="flex items-center gap-2">

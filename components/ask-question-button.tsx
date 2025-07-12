@@ -14,7 +14,7 @@ export default function AskQuestionButton({ className }: AskQuestionButtonProps)
 
   if (!permissions.canPostQuestions) {
     return (
-      <Link href="/pages/auth">
+      <Link href="/auth">
         <Button className={`StackIt-gradient text-white hover:opacity-90 btn-modern text-sm sm:text-base ${className}`}>
           <Plus className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
           <span className="hidden xs:inline">Sign In to Ask</span>

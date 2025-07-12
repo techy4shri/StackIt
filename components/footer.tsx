@@ -17,7 +17,7 @@ export default function Footer() {
 
             {/* Navigation Links */}
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-              <Link href="/pages/questions" className="hover:text-foreground transition-colors">
+              <Link href="/questions" className="hover:text-foreground transition-colors">
                 Questions
               </Link>
               <Link href="/ask" className="hover:text-foreground transition-colors">
@@ -26,7 +26,7 @@ export default function Footer() {
               <Link href="/search" className="hover:text-foreground transition-colors">
                 Search
               </Link>
-              <Link href="/pages/tags" className="hover:text-foreground transition-colors">
+              <Link href="/tags" className="hover:text-foreground transition-colors">
                 Tags
               </Link>
             </div>

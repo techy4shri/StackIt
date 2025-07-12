@@ -57,7 +57,7 @@ export default function DashboardPage() {
           <CardContent>
             <h2 className="text-2xl font-bold mb-4">Please Sign In</h2>
             <p className="text-gray-600 mb-4">You need to be signed in to view your dashboard.</p>
-            <Button onClick={() => window.location.href = '/pages/auth'}>
+            <Button onClick={() => window.location.href = '/auth'}>
               Sign In
             </Button>
           </CardContent>
@@ -188,7 +188,7 @@ export default function DashboardPage() {
               <Button 
                 className="w-full justify-start" 
                 variant="outline"
-                onClick={() => window.location.href = '/pages/questions'}
+                onClick={() => window.location.href = '/questions'}
               >
                 <BookOpen className="h-4 w-4 mr-2" />
                 Browse Questions
@@ -197,7 +197,7 @@ export default function DashboardPage() {
                 <Button 
                   className="w-full justify-start bg-red-50 hover:bg-red-100 text-red-700 border-red-200" 
                   variant="outline"
-                  onClick={() => window.location.href = '/pages/admin'}
+                  onClick={() => window.location.href = '/admin'}
                 >
                   <Shield className="h-4 w-4 mr-2" />
                   Admin Panel

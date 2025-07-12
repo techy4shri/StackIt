@@ -37,14 +37,14 @@ export default function Navbar() {
           {/* Navigation Links */}
           {isSignedIn && (
             <div className="hidden md:flex items-center space-x-6 ml-8">
-              <Link href="/pages/questions" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/questions" className="text-muted-foreground hover:text-foreground transition-colors">
                 Questions
               </Link>
-              <Link href="/pages/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
                 Dashboard
               </Link>
               {isAdmin && (
-                <Link href="/pages/admin" className="text-red-600 hover:text-red-700 transition-colors flex items-center space-x-1">
+                <Link href="/admin" className="text-red-600 hover:text-red-700 transition-colors flex items-center space-x-1">
                   <Shield className="h-4 w-4" />
                   <span>Admin</span>
                 </Link>

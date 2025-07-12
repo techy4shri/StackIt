@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
+// Update the import path to the correct location of your Button component
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'

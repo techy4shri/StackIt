@@ -51,7 +51,7 @@ export default function HomePage() {
                 Ask a Question
               </Button>
             </Link>
-            <Link href="/pages/questions">
+            <Link href="/questions">
               <Button variant="outline" size="lg" className="px-8 py-3 text-lg">
                 <Search className="mr-2 h-5 w-5" />
                 Browse Questions
