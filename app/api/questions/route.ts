@@ -8,12 +8,12 @@ export async function GET(request: NextRequest) {
     const client = await clientPromise
     const db = client.db('stackit')
     
-    // Get query parameters
+
     const { searchParams } = new URL(request.url)
     const filter = searchParams.get('filter')
     const tags = searchParams.get('tags')
     
-    // Build aggregation pipeline
+    // Building aggregation pipeline
     const pipeline: Array<Record<string, unknown>> = [
       {
         $addFields: {
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       }
     ]
     
-    // Add filtering based on query parameters
+
     if (filter === 'unanswered') {
       pipeline.push({
         $match: {
@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
       })
     }
     
-    // Add tag filtering
+
     if (tags) {
       const tagList = tags.split(',').map(tag => tag.trim())
       pipeline.push({
@@ -60,9 +60,9 @@ export async function GET(request: NextRequest) {
       })
     }
     
-    // Add sorting based on filter
+
     if (filter === 'active') {
-      // Sort by most recently answered questions
+
       pipeline.push({
         $addFields: {
           lastActivity: {
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
     } else if (filter === 'more') {
       pipeline.push({ $sort: { votes: -1 } })
     } else {
-      // Default to newest
+  
       pipeline.push({ $sort: { createdAt: -1 } })
     }
     

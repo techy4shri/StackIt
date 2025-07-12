@@ -255,7 +255,18 @@ function QuestionsContent() {
             <span className="xs:hidden">Top</span>
           </Button>
         </div>
-        <Button variant="outline" size="sm" className="btn-modern text-xs sm:text-sm w-full sm:w-auto">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="btn-modern text-xs sm:text-sm w-full sm:w-auto"
+          onClick={() => {
+            // Cycle through filters when filter button is clicked
+            const filterOrder: FilterType[] = ['newest', 'active', 'bountied', 'unanswered', 'more']
+            const currentIndex = filterOrder.indexOf(activeFilter)
+            const nextIndex = (currentIndex + 1) % filterOrder.length
+            handleFilterChange(filterOrder[nextIndex])
+          }}
+        >
           <Filter className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
           Filter
         </Button>

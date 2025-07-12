@@ -24,10 +24,23 @@ export default function Sidebar() {
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [hotQuestions, setHotQuestions] = useState<Question[]>([])
   const [watchedTags, setWatchedTags] = useState<{name: string, count: number}[]>([])
 
-  // Fetch hot network questions and popular tags
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+      if (window.innerWidth < 768) {
+        setIsCollapsed(true)
+      }
+    }
+    
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
   useEffect(() => {
     let isCancelled = false
     

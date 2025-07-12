@@ -2,12 +2,11 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-// Update the import path to the correct location of your Button component
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
-// Dynamically import Clerk components to avoid SSR issues
+
 const DynamicSignIn = dynamic(() => import('@clerk/nextjs').then(mod => ({ default: mod.SignIn })), {
   ssr: false,
   loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
@@ -23,7 +22,7 @@ function AuthContent() {
   const [isSignIn, setIsSignIn] = useState(true)
 
   useEffect(() => {
-    // Check if there's a mode parameter in the URL
+
     const mode = searchParams.get('mode')
     if (mode === 'signup' || mode === 'sign-up') {
       setIsSignIn(false)
