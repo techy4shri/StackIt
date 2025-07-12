@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import QuestionCard from '@/components/question-card'
 import { Question } from '@/lib/types'
-import { Plus, Filter } from 'lucide-react'
+import { Plus, Filter, TrendingUp } from 'lucide-react'
 
 async function getQuestions(): Promise<Question[]> {
   try {
@@ -23,30 +24,75 @@ export default async function HomePage() {
   const questions = await getQuestions()
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold">Latest Questions</h1>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Top Questions</h1>
+          <p className="text-muted-foreground mt-1">
+            {questions.length} questions
+          </p>
+        </div>
         <Link href="/ask">
-          <Button>
+          <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern">
             <Plus className="h-4 w-4 mr-2" />
             Ask Question
           </Button>
         </Link>
       </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card className="stats-card card-glow">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-foreground">23.4k</div>
+            <div className="text-sm text-muted-foreground">questions</div>
+          </CardContent>
+        </Card>
+        <Card className="stats-card card-glow">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-foreground">34.2k</div>
+            <div className="text-sm text-muted-foreground">answers</div>
+          </CardContent>
+        </Card>
+        <Card className="stats-card card-glow">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-foreground">12.1k</div>
+            <div className="text-sm text-muted-foreground">users</div>
+          </CardContent>
+        </Card>
+        <Card className="stats-card card-glow">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-foreground">567</div>
+            <div className="text-sm text-muted-foreground">tags</div>
+          </CardContent>
+        </Card>
+      </div>
       
-      <div className="mb-6 flex items-center space-x-4">
-        <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm">
-            <Filter className="h-4 w-4 mr-2" />
+      {/* Filter Tabs */}
+      <div className="flex items-center justify-between border-b pb-4">
+        <div className="flex items-center space-x-1">
+          <Button variant="default" size="sm" className="StackIt-gradient text-white btn-modern">
             Newest
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="btn-modern">
+            <TrendingUp className="h-4 w-4 mr-2" />
+            Active
+          </Button>
+          <Button variant="ghost" size="sm" className="btn-modern">
+            Bountied
+          </Button>
+          <Button variant="ghost" size="sm" className="btn-modern">
             Unanswered
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="btn-modern">
             More
           </Button>
         </div>
+        <Button variant="outline" size="sm" className="btn-modern">
+          <Filter className="h-4 w-4 mr-2" />
+          Filter
+        </Button>
       </div>
       
       <div className="space-y-4">
