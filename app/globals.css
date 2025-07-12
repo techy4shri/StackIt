@@ -399,6 +399,18 @@
     background-color: #bfdbfe;
   }
 
+  /* Mobile hamburger bar styles */
+  .mobile-hamburger-bar {
+    height: 4rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    main {
+      padding: 6rem !important;
+    }
+  }
+
   /* Mobile responsive improvements */
   @media (max-width: 640px) {
     .container {

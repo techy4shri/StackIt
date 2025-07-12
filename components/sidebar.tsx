@@ -59,14 +59,19 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Hamburger Button - Always visible when collapsed on mobile */}
+      {/* Mobile Hamburger Bar - Fixed at top, pushes content down */}
       {isMobile && isCollapsed && (
-        <button
-          onClick={toggleSidebar}
-          className="fixed top-20 left-4 z-50 p-3 rounded-lg bg-[#FFFBF9] border shadow-lg hover:bg-accent transition-colors md:hidden"
-        >
-          <Menu className="h-5 w-5" />
-        </button>
+        <div className="md:hidden fixed top-16 left-0 right-0 z-40 bg-[#FFFBF9] border-b shadow-sm mobile-hamburger-bar">
+          <div className="flex items-center justify-between p-3">
+            <button
+              onClick={toggleSidebar}
+              className="flex items-center gap-2 p-2 rounded-lg bg-white border shadow-sm hover:bg-accent transition-colors"
+            >
+              <Menu className="h-4 w-4" />
+              <span className="text-sm font-medium">Menu</span>
+            </button>
+          </div>
+        </div>
       )}
 
       {/* Mobile Overlay */}
@@ -80,14 +85,23 @@ export default function Sidebar() {
       <aside className={`
         ${isCollapsed ? 'w-0 md:w-16' : 'w-64'} 
         ${isMobile && !isCollapsed ? 'fixed left-0 top-0 h-full z-50' : 'relative'}
+        ${isMobile && isCollapsed ? 'hidden md:block' : ''}
         border-r backdrop-blur-sm 
         transition-all duration-300 ease-in-out overflow-hidden
       `} style={{ backgroundColor: '#FFFBF9' }}>
         {/* Hamburger Button - Inside Sidebar */}
-        <div className="flex justify-end p-2 border-b">
+        <div className="flex justify-between items-center p-3 border-b">
+          {isMobile && !isCollapsed && (
+            <div className="flex items-center space-x-2">
+              <div className="StackIt-gradient flex h-6 w-6 items-center justify-center rounded text-white font-bold text-sm">
+                S
+              </div>
+              <span className="text-lg font-bold text-foreground">Menu</span>
+            </div>
+          )}
           <button
             onClick={toggleSidebar}
-            className="p-2 rounded-lg hover:bg-accent transition-colors"
+            className="p-2 rounded-lg hover:bg-accent transition-colors ml-auto"
           >
             {isCollapsed ? <Menu className="h-5 w-5" /> : <X className="h-5 w-5" />}
           </button>
