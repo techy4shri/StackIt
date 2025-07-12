@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Question } from '@/lib/types'
-import { User, Clock, Trash2 } from 'lucide-react'
+import { Clock, Trash2 } from 'lucide-react'
 import { useUserRole } from '@/hooks/useUserRole'
 import VotingButtons from '@/components/voting-buttons'
 
@@ -33,7 +33,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
   const answerCount = Array.isArray(question.answers) ? question.answers.length : (question.answers || 0)
 
   return (
-    <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary">
+    <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary" style={{ backgroundColor: '#fbfbfa' }}>
       <CardContent className="p-6">
         <div className="flex gap-6">
           {/* Voting Column */}
@@ -92,7 +92,6 @@ export default function QuestionCard({ question }: QuestionCardProps) {
             {/* Author and Time */}
             <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between pt-2 gap-2">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <User className="h-4 w-4 flex-shrink-0" />
                 <span className="truncate">{question.authorName || 'Anonymous'}</span>
                 <span className="hidden xs:inline">•</span>
                 <Clock className="h-4 w-4 flex-shrink-0" />

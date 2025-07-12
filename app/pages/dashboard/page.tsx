@@ -67,9 +67,10 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="mb-8">
+    <div className="min-h-screen w-full bg-white">
+      <div className="space-y-6 p-6">
+        {/* Header */}
+        <div className="mb-8">
           <div className="flex items-center space-x-4 mb-4">
             <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
               {user.firstName?.[0] || user.emailAddresses[0]?.emailAddress[0] || 'U'}
@@ -253,5 +254,6 @@ export default function DashboardPage() {
           </Card>
         </div>
       </div>
+    </div>
   )
 }
