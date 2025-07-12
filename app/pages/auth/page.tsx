@@ -33,7 +33,7 @@ function AuthContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-orange-50/20 flex items-center justify-center p-3 sm:p-4">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl px-4 sm:px-6 mx-auto">
         <div className="text-center mb-6 sm:mb-8">
           <div className="StackIt-gradient mx-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl text-white font-bold text-lg sm:text-xl mb-3 sm:mb-4 shadow-lg">
             S

@@ -115,16 +115,15 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Hamburger Bar - Fixed at top, pushes content down */}
+      {/* Mobile Hamburger Bar - Only show when collapsed, no fixed positioning */}
       {isMobile && isCollapsed && (
-        <div className="md:hidden fixed top-16 left-0 right-0 z-40 bg-[#FFFBF9] border-b shadow-sm mobile-hamburger-bar">
+        <div className="md:hidden bg-[#FFFBF9] border-b shadow-sm">
           <div className="flex items-center justify-between p-3">
             <button
               onClick={toggleSidebar}
               className="flex items-center gap-2 p-2 rounded-lg bg-white border shadow-sm hover:bg-accent transition-colors"
             >
               <Menu className="h-4 w-4" />
-              <span className="text-sm font-medium">Menu</span>
             </button>
           </div>
         </div>
@@ -147,7 +146,7 @@ export default function Sidebar() {
       `} style={{ backgroundColor: '#FFFBF9' }}>
         {/* Hamburger Button - Inside Sidebar */}
         <div className="flex justify-between items-center p-3 border-b">
-          {isMobile && !isCollapsed && (
+          {!isCollapsed && (
             <div className="flex items-center space-x-2">
               <div className="StackIt-gradient flex h-6 w-6 items-center justify-center rounded text-white font-bold text-sm">
                 S

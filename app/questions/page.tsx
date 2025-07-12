@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import QuestionCard from '@/components/question-card'
+import QuestionItem from '@/components/question-item'
 import AskQuestionButton from '@/components/ask-question-button'
 import { Question } from '@/lib/types'
 import { Filter, TrendingUp, X } from 'lucide-react'
@@ -368,7 +368,7 @@ function QuestionsContent() {
           </div>
         ) : (
           filteredQuestions.map((question) => (
-            <QuestionCard key={question._id?.toString()} question={question} />
+            <QuestionItem key={question._id?.toString()} question={question} />
           ))
         )}
       </div>

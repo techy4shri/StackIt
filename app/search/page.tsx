@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import QuestionCard from '@/components/question-card'
+import QuestionItem from '@/components/question-item'
 import { Question } from '@/lib/types'
 import { Search } from 'lucide-react'
 
@@ -103,7 +103,7 @@ function SearchPageContent() {
           </div>
         ) : (
           questions.map((question) => (
-            <QuestionCard key={question._id?.toString()} question={question} />
+            <QuestionItem key={question._id?.toString()} question={question} />
           ))
         )}
       </div>

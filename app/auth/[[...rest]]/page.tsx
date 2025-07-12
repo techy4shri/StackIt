@@ -22,7 +22,8 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-0 flex-1 flex flex-col justify-center items-center p-3 sm:p-4 bg-gradient-to-br from-background via-background to-orange-50/20">
-      <div className="w-full max-w-sm flex-shrink-0">
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl px-3 sm:px-4 mx-auto">
+
         <div className="text-center mb-2 sm:mb-3">
           <div className="StackIt-gradient mx-auto flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg text-white font-bold text-sm sm:text-base mb-1 sm:mb-2 shadow-lg">
             S
@@ -98,8 +99,8 @@ export default function AuthPage() {
                   signInUrl="/auth?mode=signin"
                   appearance={{
                     elements: {
-                      rootBox: "w-full",
-                      card: "bg-transparent shadow-none border-0 p-0",
+                      rootBox: "w-full max-w-full px-2 sm:px-4",
+                      card: "w-full max-w-full bg-transparent shadow-none border-0 p-0",
                       headerTitle: "hidden",
                       headerSubtitle: "hidden",
                       socialButtonsBlockButton: "border-border hover:bg-accent text-xs py-1",
