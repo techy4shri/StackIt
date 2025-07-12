@@ -24,6 +24,17 @@ export interface Answer {
   createdAt: Date
   votes: number
   isAccepted: boolean
+  comments?: Comment[]
+}
+
+export interface Comment {
+  _id?: ObjectId
+  answerId: string
+  content: string
+  authorId: string
+  authorName: string
+  authorImage?: string
+  createdAt: Date
 }
 
 export interface Vote {
@@ -43,4 +54,15 @@ export interface Notification {
   read: boolean
   createdAt: Date
   relatedId?: string
+}
+
+export interface User {
+  _id?: ObjectId
+  clerkId: string
+  email: string
+  name: string
+  imageUrl?: string
+  role: 'guest' | 'user' | 'admin'
+  reputation: number
+  createdAt: Date
 }
