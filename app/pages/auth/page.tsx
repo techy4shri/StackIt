@@ -6,15 +6,30 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
-
+// Preload Clerk components for faster loading
 const DynamicSignIn = dynamic(() => import('@clerk/nextjs').then(mod => ({ default: mod.SignIn })), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
+  loading: () => (
+    <div className="animate-pulse space-y-3">
+      <div className="bg-gray-200 h-8 rounded"></div>
+      <div className="bg-gray-200 h-8 rounded"></div>
+      <div className="bg-gray-200 h-8 rounded"></div>
+      <div className="bg-gray-200 h-10 rounded"></div>
+    </div>
+  )
 })
 
 const DynamicSignUp = dynamic(() => import('@clerk/nextjs').then(mod => ({ default: mod.SignUp })), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
+  loading: () => (
+    <div className="animate-pulse space-y-3">
+      <div className="bg-gray-200 h-8 rounded"></div>
+      <div className="bg-gray-200 h-8 rounded"></div>
+      <div className="bg-gray-200 h-8 rounded"></div>
+      <div className="bg-gray-200 h-8 rounded"></div>
+      <div className="bg-gray-200 h-10 rounded"></div>
+    </div>
+  )
 })
 
 function AuthContent() {
@@ -55,12 +70,12 @@ function AuthContent() {
             style={{ transformStyle: "preserve-3d" }}
           >
             {/* Sign In Card */}
-            <div className="absolute inset-0 w-full backface-hidden">
+            <div className="absolute inset-0 w-full max-w-80 backface-hidden">
               <div className="bg-card p-1 sm:p-2 rounded-md shadow-sm border border-border backdrop-blur-sm">
                 <DynamicSignIn 
                   appearance={{
                     elements: {
-                      rootBox: "w-full",
+                      rootBox: "w-full max-w-80",
                       card: "bg-transparent shadow-none border-0 p-0",
                       socialButtonsBlockButton: "border-border hover:bg-accent text-sm",
                       formButtonPrimary: "StackIt-gradient hover:opacity-90",

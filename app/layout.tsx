@@ -25,6 +25,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
+        <head>
+          <link rel="preload" href="https://clerk.com/assets/clerk.js" as="script" />
+        </head>
         <body className={inter.className}>
           <div className="min-h-screen w-full relative bg-white flex flex-col">
             {/* Orange Soft Glow */}
