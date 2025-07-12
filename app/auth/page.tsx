@@ -1,9 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { SignIn, SignUp } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
+
+// Dynamically import Clerk components to avoid SSR issues
+const DynamicSignIn = dynamic(() => import('@clerk/nextjs').then(mod => ({ default: mod.SignIn })), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
+})
+
+const DynamicSignUp = dynamic(() => import('@clerk/nextjs').then(mod => ({ default: mod.SignUp })), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
+})
 
 export default function AuthPage() {
   const [isSignIn, setIsSignIn] = useState(true)
@@ -37,7 +48,7 @@ export default function AuthPage() {
             {/* Sign In Card */}
             <div className="absolute inset-0 w-full backface-hidden">
               <div className="bg-card p-8 rounded-xl shadow-xl border border-border backdrop-blur-sm">
-                <SignIn 
+                <DynamicSignIn 
                   appearance={{
                     elements: {
                       rootBox: "w-full",
@@ -59,7 +70,7 @@ export default function AuthPage() {
               style={{ transform: "rotateY(180deg)" }}
             >
               <div className="bg-card p-8 rounded-xl shadow-xl border border-border backdrop-blur-sm">
-                <SignUp 
+                <DynamicSignUp 
                   appearance={{
                     elements: {
                       rootBox: "w-full",
