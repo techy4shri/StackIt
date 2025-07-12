@@ -25,15 +25,27 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/pages/homepage" className="flex items-center space-x-2">
             <div className="StackIt-gradient flex h-8 w-8 items-center justify-center rounded text-white font-bold">
               S
             </div>
             <span className="text-xl font-bold text-foreground">StackIt</span>
           </Link>
           
+          {/* Navigation Links */}
+          {isSignedIn && (
+            <div className="hidden md:flex items-center space-x-6 ml-8">
+              <Link href="/pages/questions" className="text-muted-foreground hover:text-foreground transition-colors">
+                Questions
+              </Link>
+              <Link href="/pages/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+                Dashboard
+              </Link>
+            </div>
+          )}
+          
           {/* Search Bar */}
-          <div className="flex-1 max-w-2xl mx-8">
+          <div className="flex-1 max-w-xl mx-8">
             <form onSubmit={handleSearch} className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -88,10 +100,10 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/sign-in">
+                <Link href="/pages/auth">
                   <Button variant="ghost" className="btn-modern">Log in</Button>
                 </Link>
-                <Link href="/sign-up">
+                <Link href="/pages/auth">
                   <Button className="StackIt-gradient text-white hover:opacity-90 btn-modern">
                     Sign up
                   </Button>
