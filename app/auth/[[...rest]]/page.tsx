@@ -21,7 +21,7 @@ export default function AuthPage() {
   }, [searchParams])
 
   return (
-    <div className="h-full flex flex-col justify-center items-center p-3 sm:p-4 bg-gradient-to-br from-background via-background to-orange-50/20">
+    <div className="min-h-0 flex-1 flex flex-col justify-center items-center p-3 sm:p-4 bg-gradient-to-br from-background via-background to-orange-50/20">
       <div className="w-full max-w-sm flex-shrink-0">
         <div className="text-center mb-2 sm:mb-3">
           <div className="StackIt-gradient mx-auto flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg text-white font-bold text-sm sm:text-base mb-1 sm:mb-2 shadow-lg">
