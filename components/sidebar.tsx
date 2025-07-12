@@ -24,7 +24,6 @@ export default function Sidebar() {
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
   const [hotQuestions, setHotQuestions] = useState<Question[]>([])
   const [watchedTags, setWatchedTags] = useState<{name: string, count: number}[]>([])
 
