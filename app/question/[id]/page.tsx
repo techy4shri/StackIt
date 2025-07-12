@@ -220,7 +220,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
               <p className="text-muted-foreground mb-4">
                 Please log in to post an answer
               </p>
-              <Button onClick={() => window.location.href = '/sign-in'}>
+              <Button onClick={() => window.location.href = '/auth'}>
                 Log In
               </Button>
             </CardContent>

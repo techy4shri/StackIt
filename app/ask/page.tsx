@@ -21,7 +21,7 @@ export default function AskQuestionPage() {
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
-      router.push('/sign-in')
+      router.push('/auth')
     }
   }, [isLoaded, isSignedIn, router])
 

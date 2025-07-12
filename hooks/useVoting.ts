@@ -44,9 +44,9 @@ export function useVoting(targetId: string, targetType: 'question' | 'answer', i
   }, [user, targetId, targetType])
 
   const vote = async (voteType: 'up' | 'down') => {
-    // Redirect guests to sign-in page
+    // Redirect guests to auth page
     if (!user) {
-      router.push('/sign-in')
+      router.push('/auth')
       return
     }
 

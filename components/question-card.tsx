@@ -53,7 +53,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
               <span className="text-xs font-medium text-green-600">answers</span>
             </div>
             <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-blue-50 to-blue-100/20">
-              <span className="font-bold text-base sm:text-lg text-blue-700">{Math.floor(Math.random() * 100)}</span>
+              <span className="font-bold text-base sm:text-lg text-blue-700">{question.views || 0}</span>
               <span className="text-xs font-medium text-blue-600">views</span>
             </div>
           </div>

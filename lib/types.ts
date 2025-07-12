@@ -10,6 +10,7 @@ export interface Question {
   authorImage?: string
   createdAt: Date
   votes: number
+  views: number
   answers: Answer[]
   acceptedAnswerId?: string
 }

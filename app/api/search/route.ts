@@ -14,15 +14,30 @@ export async function GET(request: NextRequest) {
     const client = await clientPromise
     const db = client.db('stackit')
     
-    const questions = await db
-      .collection('questions')
-      .find({
+    // Check if this is a tag search (format: [tagname])
+    const tagMatch = query.match(/^\[(.+)\]$/)
+    
+    let searchCondition
+    if (tagMatch) {
+      // Tag-specific search
+      const tagName = tagMatch[1]
+      searchCondition = {
+        tags: { $in: [new RegExp(tagName, 'i')] }
+      }
+    } else {
+      // General search across title, description, and tags
+      searchCondition = {
         $or: [
           { title: { $regex: query, $options: 'i' } },
           { description: { $regex: query, $options: 'i' } },
           { tags: { $in: [new RegExp(query, 'i')] } }
         ]
-      })
+      }
+    }
+    
+    const questions = await db
+      .collection('questions')
+      .find(searchCondition)
       .sort({ createdAt: -1 })
       .limit(20)
       .toArray()

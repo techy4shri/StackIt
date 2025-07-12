@@ -12,86 +12,86 @@ const popularTags = [
   {
     name: 'javascript',
     description: 'For questions about the high-level, interpreted programming language JavaScript.',
-    questions: 2156789,
-    followers: 156432,
-    todayQuestions: 234
+    questions: 156,
+    followers: 89,
+    todayQuestions: 12
   },
   {
     name: 'python',
     description: 'For questions about Python programming language.',
-    questions: 1876543,
-    followers: 142301,
-    todayQuestions: 189
+    questions: 134,
+    followers: 76,
+    todayQuestions: 8
   },
   {
     name: 'react',
     description: 'For questions about React, the JavaScript library for building user interfaces.',
-    questions: 987654,
-    followers: 98765,
-    todayQuestions: 156
+    questions: 98,
+    followers: 65,
+    todayQuestions: 7
   },
   {
     name: 'typescript',
     description: 'For questions about TypeScript, the typed superset of JavaScript.',
-    questions: 654321,
-    followers: 76543,
-    todayQuestions: 134
+    questions: 87,
+    followers: 54,
+    todayQuestions: 6
   },
   {
     name: 'nodejs',
     description: 'For questions about Node.js, the JavaScript runtime built on Chrome\'s V8 JavaScript engine.',
-    questions: 543210,
-    followers: 65432,
-    todayQuestions: 112
+    questions: 76,
+    followers: 43,
+    todayQuestions: 5
   },
   {
     name: 'html',
     description: 'For questions about HTML (HyperText Markup Language), the standard markup language.',
-    questions: 432109,
-    followers: 54321,
-    todayQuestions: 98
+    questions: 65,
+    followers: 38,
+    todayQuestions: 4
   },
   {
     name: 'css',
     description: 'For questions about CSS (Cascading Style Sheets) for styling web pages.',
-    questions: 321098,
-    followers: 43210,
-    todayQuestions: 87
+    questions: 54,
+    followers: 32,
+    todayQuestions: 3
   },
   {
     name: 'nextjs',
     description: 'For questions about Next.js, the React framework for production.',
-    questions: 210987,
-    followers: 32109,
-    todayQuestions: 76
+    questions: 43,
+    followers: 27,
+    todayQuestions: 3
   },
   {
     name: 'mongodb',
     description: 'For questions about MongoDB, the document-oriented NoSQL database.',
-    questions: 109876,
-    followers: 21098,
-    todayQuestions: 54
+    questions: 32,
+    followers: 21,
+    todayQuestions: 2
   },
   {
     name: 'git',
     description: 'For questions about Git, the distributed version control system.',
-    questions: 98765,
-    followers: 19876,
-    todayQuestions: 43
+    questions: 28,
+    followers: 19,
+    todayQuestions: 2
   },
   {
     name: 'api',
     description: 'For questions about APIs (Application Programming Interfaces).',
-    questions: 87654,
-    followers: 18765,
-    todayQuestions: 65
+    questions: 25,
+    followers: 16,
+    todayQuestions: 2
   },
   {
     name: 'database',
     description: 'For questions about databases and database management systems.',
-    questions: 76543,
-    followers: 17654,
-    todayQuestions: 32
+    questions: 21,
+    followers: 14,
+    todayQuestions: 1
   }
 ]
 

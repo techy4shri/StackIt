@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import clientPromise from '@/lib/mongodb'
 import { Question } from '@/lib/types'
 
@@ -33,8 +33,8 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await auth()
-    const userId = session.userId
+    const { userId } = await auth()
+    const user = await currentUser()
 
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -51,20 +51,17 @@ export async function POST(request: NextRequest) {
 
     const client = await clientPromise
     const db = client.db('stackit')
-    
-    const firstName = (session as { firstName?: string }).firstName || ''
-    const lastName = (session as { lastName?: string }).lastName || ''
-    const imageUrl = (session as { imageUrl?: string }).imageUrl || ''
 
     const question: Omit<Question, '_id'> = {
       title,
       description,
       tags,
       authorId: userId,
-      authorName: (firstName + ' ' + lastName).trim() || 'Anonymous',
-      authorImage: imageUrl,
+      authorName: user?.firstName + ' ' + user?.lastName || 'Anonymous',
+      authorImage: user?.imageUrl,
       createdAt: new Date(),
       votes: 0,
+      views: 0,
       answers: [],
     }
 

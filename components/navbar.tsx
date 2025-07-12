@@ -109,7 +109,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/sign-in">
+                <Link href="/auth">
                   <Button variant="ghost" className="btn-modern text-sm">
                     <span className="hidden xs:inline">Log in</span>
                     <span className="xs:hidden">Login</span>

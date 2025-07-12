@@ -134,7 +134,7 @@ export default function Sidebar() {
                 {watching.map((tag) => (
                   <Link
                     key={tag.name}
-                    href={`/questions/tagged/${tag.name}`}
+                    href={`/search?q=[${tag.name}]`}
                     className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105"
                   >
                     <span className="flex items-center gap-2">

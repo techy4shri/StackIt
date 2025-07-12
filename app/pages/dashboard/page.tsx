@@ -20,7 +20,7 @@ import { useUserRole } from '@/hooks/useUserRole'
 export default function DashboardPage() {
   const { isSignedIn, isLoaded } = useAuth()
   const { user } = useUser()
-  const { role, isAdmin, permissions } = useUserRole()
+  const { isAdmin, permissions } = useUserRole()
   const [stats, setStats] = useState({
     questionsCount: 0,
     answersCount: 0,
