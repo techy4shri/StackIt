@@ -117,17 +117,18 @@ export default function TagsPage() {
   })
 
   return (
-    <div className="min-h-screen w-full bg-white relative text-gray-800">
-      {/* Concentric Squares - Light Pattern */}
+    <div className="min-h-screen w-full bg-[#0f0f0f] relative text-white">
+      {/* Circuit Board - Dark Pattern */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
           backgroundImage: `
-            repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(75, 85, 99, 0.06) 5px, rgba(75, 85, 99, 0.06) 6px, transparent 6px, transparent 15px),
-            repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(75, 85, 99, 0.06) 5px, rgba(75, 85, 99, 0.06) 6px, transparent 6px, transparent 15px),
-            repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(107, 114, 128, 0.04) 10px, rgba(107, 114, 128, 0.04) 11px, transparent 11px, transparent 30px),
-            repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(107, 114, 128, 0.04) 10px, rgba(107, 114, 128, 0.04) 11px, transparent 11px, transparent 30px)
+            repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(34, 197, 94, 0.15) 19px, rgba(34, 197, 94, 0.15) 20px, transparent 20px, transparent 39px, rgba(34, 197, 94, 0.15) 39px, rgba(34, 197, 94, 0.15) 40px),
+            repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(34, 197, 94, 0.15) 19px, rgba(34, 197, 94, 0.15) 20px, transparent 20px, transparent 39px, rgba(34, 197, 94, 0.15) 39px, rgba(34, 197, 94, 0.15) 40px),
+            radial-gradient(circle at 20px 20px, rgba(16, 185, 129, 0.18) 2px, transparent 2px),
+            radial-gradient(circle at 40px 40px, rgba(16, 185, 129, 0.18) 2px, transparent 2px)
           `,
+          backgroundSize: '40px 40px, 40px 40px, 40px 40px, 40px 40px',
         }}
       />
       
@@ -223,12 +224,12 @@ export default function TagsPage() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sortedTags.map((tag, index) => (
           <Link key={index} href={`/search?q=[${tag.name}]`}>
-            <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-orange-200 cursor-pointer">
+            <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-orange-200 dark:hover:border-orange-700 cursor-pointer">
               <CardContent className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
                   <Badge 
                     variant="secondary" 
-                    className="bg-orange-100 text-orange-800 hover:bg-orange-200 font-mono text-sm px-3 py-1"
+                    className="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50 font-mono text-sm px-3 py-1"
                   >
                     <Hash className="h-3 w-3 mr-1" />
                     {tag.name}
@@ -239,7 +240,7 @@ export default function TagsPage() {
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
+                <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 leading-relaxed">
                   {tag.description}
                 </p>
 

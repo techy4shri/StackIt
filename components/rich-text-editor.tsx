@@ -82,8 +82,8 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
   }
 
   return (
-    <div className="border rounded-md">
-      <div className="flex flex-wrap gap-1 p-2 border-b">
+    <div className="border rounded-md border-border dark:border-gray-700">
+      <div className="flex flex-wrap gap-1 p-2 border-b border-border dark:border-gray-700">
         <Button
           variant="ghost"
           size="sm"
@@ -180,7 +180,7 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       </div>
       <EditorContent 
         editor={editor} 
-        className="prose prose-sm max-w-none min-h-[200px] p-4 focus-within:outline-none resize-y overflow-auto border-t"
+        className="prose prose-sm dark:prose-invert max-w-none min-h-[200px] p-4 focus-within:outline-none resize-y overflow-auto border-t border-border dark:border-gray-700 bg-background dark:bg-gray-800"
         style={{ resize: 'vertical' }}
       />
     </div>

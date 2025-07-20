@@ -224,7 +224,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Question Card */}
-      <Card className="mb-8" style={{ backgroundColor: '#FFFBF9' }}>
+      <Card className="mb-8 bg-orange-50/30 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800">
         <CardHeader>
           <div className="flex items-start justify-between">
             <CardTitle className="text-2xl">{question.title}</CardTitle>
@@ -256,8 +256,8 @@ export default function QuestionPage({ params }: QuestionPageProps) {
                 disabled={!isSignedIn || isVoting}
                 className={`flex items-center space-x-1 ${
                   userVote === 'up' 
-                    ? 'bg-green-500 hover:bg-green-600 text-white' 
-                    : 'hover:bg-green-50 hover:text-green-600 hover:border-green-300'
+                    ? 'bg-green-500 hover:bg-green-600 text-white dark:bg-green-600 dark:hover:bg-green-700' 
+                    : 'hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 hover:border-green-300 dark:hover:border-green-600'
                 }`}
               >
                 <ThumbsUp className="h-4 w-4" />
@@ -270,8 +270,8 @@ export default function QuestionPage({ params }: QuestionPageProps) {
                 disabled={!isSignedIn || isVoting}
                 className={`${
                   userVote === 'down' 
-                    ? 'bg-red-500 hover:bg-red-600 text-white' 
-                    : 'hover:bg-red-50 hover:text-red-600 hover:border-red-300'
+                    ? 'bg-red-500 hover:bg-red-600 text-white dark:bg-red-600 dark:hover:bg-red-700' 
+                    : 'hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 hover:border-red-300 dark:hover:border-red-600'
                 }`}
               >
                 <ThumbsDown className="h-4 w-4" />
@@ -308,7 +308,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
         {/* Submit Answer Form */}
         {isSignedIn ? (
           userHasAnswered ? (
-            <Card style={{ backgroundColor: '#FFFBF9' }}>
+            <Card className="bg-orange-50/30 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800">
               <CardContent className="text-center py-8">
                 <p className="text-muted-foreground mb-4">
                   You have already submitted an answer to this question.
@@ -319,13 +319,13 @@ export default function QuestionPage({ params }: QuestionPageProps) {
               </CardContent>
             </Card>
           ) : (
-            <Card style={{ backgroundColor: '#FFFBF9' }}>
+            <Card className="bg-orange-50/30 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800">
               <CardHeader>
                 <CardTitle>Your Answer</CardTitle>
                 {showWarning && (
-                  <div className="flex items-center gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <AlertTriangle className="h-4 w-4 text-yellow-600" />
-                    <p className="text-sm text-yellow-800">
+                  <div className="flex items-center gap-2 p-3 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                    <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
+                    <p className="text-sm text-yellow-800 dark:text-yellow-300">
                       Warning: Multiple submission attempts detected. Please review your answer carefully before submitting.
                     </p>
                   </div>
@@ -340,7 +340,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting || !newAnswer.trim()}
-                    className="bg-orange-500 hover:bg-orange-600 text-white"
+                    className="bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 text-white"
                   >
                     {isSubmitting ? 'Submitting...' : 'Submit Answer'}
                   </Button>
@@ -354,7 +354,7 @@ export default function QuestionPage({ params }: QuestionPageProps) {
             </Card>
           )
         ) : (
-          <Card style={{ backgroundColor: '#FFFBF9' }}>
+          <Card className="bg-orange-50/30 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800">
             <CardContent className="text-center py-8">
               <p className="text-muted-foreground mb-4">
                 Please log in to post an answer

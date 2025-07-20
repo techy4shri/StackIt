@@ -47,8 +47,11 @@ function AuthContent() {
   }, [searchParams])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-orange-50/20 flex items-center justify-center p-1 sm:p-2">
-      <div className="w-full max-w-[160px] sm:max-w-[200px] md:max-w-[260px] px-1 sm:px-2 mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-orange-50/20 dark:bg-gray-900 flex items-center justify-center p-1 sm:p-2 relative">
+      {/* Circuit Board - Dark Pattern (Dark Mode Only) */}
+      <div className="circuit-board-bg hidden dark:block" />
+      
+      <div className="w-full max-w-[160px] sm:max-w-[200px] md:max-w-[260px] px-1 sm:px-2 mx-auto" style={{ zIndex: 10 }}>
         <div className="text-center mb-2 sm:mb-3">
           <h1 className="text-sm sm:text-base font-bold text-foreground">
             {isSignIn ? 'Welcome back' : 'Join StackIt'}
@@ -79,7 +82,16 @@ function AuthContent() {
                       card: "bg-transparent shadow-none border-0 p-0",
                       socialButtonsBlockButton: "border-border hover:bg-accent text-sm",
                       formButtonPrimary: "StackIt-gradient hover:opacity-90",
-                      footerActionLink: "text-primary hover:text-primary/90"
+                      footerActionLink: "text-primary hover:text-primary/90",
+                      footerAction: "hidden",
+                      footer: "hidden",
+                      footerActionText: "hidden",
+                      identityPreviewText: "hidden",
+                      identityPreviewEditButton: "hidden"
+                    },
+                    layout: {
+                      showOptionalFields: false,
+                      socialButtonsPlacement: "top"
                     }
                   }}
                 />
@@ -99,7 +111,16 @@ function AuthContent() {
                       card: "bg-transparent shadow-none border-0 p-0",
                       socialButtonsBlockButton: "border-border hover:bg-accent text-sm",
                       formButtonPrimary: "StackIt-gradient hover:opacity-90",
-                      footerActionLink: "text-primary hover:text-primary/90"
+                      footerActionLink: "text-primary hover:text-primary/90",
+                      footerAction: "hidden",
+                      footer: "hidden",
+                      footerActionText: "hidden",
+                      identityPreviewText: "hidden",
+                      identityPreviewEditButton: "hidden"
+                    },
+                    layout: {
+                      showOptionalFields: false,
+                      socialButtonsPlacement: "top"
                     }
                   }}
                 />
@@ -134,8 +155,11 @@ function AuthContent() {
 export default function AuthPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-orange-50/20 flex items-center justify-center p-1 sm:p-2">
-        <div className="w-full max-w-[160px] sm:max-w-[200px]">
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-orange-50/20 dark:bg-gray-900 flex items-center justify-center p-1 sm:p-2 relative">
+        {/* Circuit Board - Dark Pattern (Dark Mode Only) */}
+        <div className="circuit-board-bg hidden dark:block" />
+        
+        <div className="w-full max-w-[160px] sm:max-w-[200px]" style={{ zIndex: 10 }}>
           <div className="animate-pulse">
             <div className="bg-gray-200 h-6 w-20 rounded mx-auto mb-1"></div>
             <div className="bg-gray-200 h-3 w-28 rounded mx-auto mb-3"></div>

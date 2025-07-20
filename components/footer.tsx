@@ -3,7 +3,7 @@ import { Github, Mail, Heart, Linkedin } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 text-white mt-auto">
+    <footer className="bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 dark:from-orange-800 dark:via-amber-800 dark:to-yellow-800 text-white mt-auto">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">

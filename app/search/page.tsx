@@ -74,8 +74,8 @@ function SearchPageContent() {
       </div>
       
       {questions.length > 0 && (
-        <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
-          <p className="text-green-800 font-medium">
+        <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-lg border border-green-200 dark:border-green-800">
+          <p className="text-green-800 dark:text-green-300 font-medium">
             ✅ Found {questions.length} result{questions.length !== 1 ? 's' : ''} for &ldquo;{query}&rdquo;
           </p>
         </div>

@@ -61,9 +61,9 @@ export default function NotificationDropdown() {
       </Button>
       
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg border z-50">
-          <div className="p-4 border-b">
-            <h3 className="font-semibold">Notifications</h3>
+        <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100">Notifications</h3>
           </div>
           <div className="max-h-80 overflow-y-auto">
             {notifications.length === 0 ? (
@@ -74,8 +74,8 @@ export default function NotificationDropdown() {
               notifications.map((notification) => (
                 <div
                   key={notification._id?.toString()}
-                  className={`p-4 border-b hover:bg-gray-50 cursor-pointer ${
-                    !notification.read ? 'bg-blue-50' : ''
+                  className={`p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
+                    !notification.read ? 'bg-blue-50 dark:bg-blue-900/30' : ''
                   }`}
                   onClick={() => {
                     if (!notification.read) {
@@ -83,7 +83,7 @@ export default function NotificationDropdown() {
                     }
                   }}
                 >
-                  <p className="text-sm">{notification.message}</p>
+                  <p className="text-sm text-gray-900 dark:text-gray-100">{notification.message}</p>
                   <p className="text-xs text-muted-foreground mt-1">
                     {new Date(notification.createdAt).toLocaleDateString()}
                   </p>

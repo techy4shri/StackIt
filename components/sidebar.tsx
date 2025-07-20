@@ -117,11 +117,11 @@ export default function Sidebar() {
     <>
       {/* Mobile Hamburger Bar - Only show when collapsed, no fixed positioning */}
       {isMobile && isCollapsed && (
-        <div className="md:hidden bg-[#FFFBF9] border-b shadow-sm">
+        <div className="md:hidden bg-background dark:bg-gray-900 border-b shadow-sm">
           <div className="flex items-center justify-between p-3">
             <button
               onClick={toggleSidebar}
-              className="flex items-center gap-2 p-2 rounded-lg bg-white border shadow-sm hover:bg-accent transition-colors"
+              className="flex items-center gap-2 p-2 rounded-lg bg-background dark:bg-gray-800 border shadow-sm hover:bg-accent transition-colors"
             >
               <Menu className="h-4 w-4" />
             </button>
@@ -141,9 +141,9 @@ export default function Sidebar() {
         ${isCollapsed ? 'w-0 md:w-16' : 'w-64'} 
         ${isMobile && !isCollapsed ? 'fixed left-0 top-0 h-full z-50' : 'relative'}
         ${isMobile && isCollapsed ? 'hidden md:block' : ''}
-        border-r backdrop-blur-sm 
+        border-r backdrop-blur-sm bg-background dark:bg-gray-900
         transition-all duration-300 ease-in-out overflow-hidden
-      `} style={{ backgroundColor: '#FFFBF9' }}>
+      `}>
         {/* Hamburger Button - Inside Sidebar */}
         <div className="flex justify-between items-center p-3 border-b">
           {!isCollapsed && (
@@ -199,7 +199,7 @@ export default function Sidebar() {
                       className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105"
                     >
                       <span className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"></div>
+                        <div className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-400 dark:from-blue-300 to-purple-400 dark:to-purple-300"></div>
                         <span className="font-medium">{tag.name}</span>
                       </span>
                       <span className="text-xs bg-muted px-2 py-1 rounded-full font-medium">{tag.count}</span>
@@ -227,8 +227,7 @@ export default function Sidebar() {
                       key={question._id?.toString()}
                       href={`/question/${question._id?.toString()}`}
                       className="block text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                    >
-                      <div className="flex items-start gap-2 p-2 rounded-lg hover:bg-orange-50/50">
+                    >                        <div className="flex items-start gap-2 p-2 rounded-lg hover:bg-orange-50/50 dark:hover:bg-orange-900/20">
                         <TrendingUp className="mt-0.5 h-3 w-3 text-orange-500 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <span className="line-clamp-2 font-medium">

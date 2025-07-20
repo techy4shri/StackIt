@@ -43,8 +43,8 @@ export default function DashboardPage() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading dashboard...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 dark:border-orange-400 mx-auto"></div>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Loading dashboard...</p>
         </div>
       </div>
     )
@@ -56,7 +56,7 @@ export default function DashboardPage() {
         <Card className="p-8 text-center">
           <CardContent>
             <h2 className="text-2xl font-bold mb-4">Please Sign In</h2>
-            <p className="text-gray-600 mb-4">You need to be signed in to view your dashboard.</p>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">You need to be signed in to view your dashboard.</p>
             <Button onClick={() => window.location.href = '/pages/auth'}>
               Sign In
             </Button>
@@ -67,7 +67,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-white">
+    <div className="min-h-screen w-full bg-white dark:bg-gray-900">
       <div className="space-y-4 sm:space-y-6 p-3 sm:p-6">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
@@ -77,20 +77,20 @@ export default function DashboardPage() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3">
-                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 truncate">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 truncate">
                   Welcome back, {user.firstName || 'Developer'}!
                 </h1>
                 {isAdmin && (
                   <Badge 
                     variant="destructive" 
-                    className="bg-red-100 text-red-800 capitalize self-start sm:self-auto"
+                    className="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 capitalize self-start sm:self-auto"
                   >
                     <Shield className="h-3 w-3 mr-1" />
                     Admin
                   </Badge>
                 )}
               </div>
-              <p className="text-sm sm:text-base text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                 Member since {new Date(user.createdAt || Date.now()).toLocaleDateString()}
               </p>
             </div>
@@ -101,7 +101,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
           <Card className="text-center hover:shadow-lg transition-shadow">
             <CardContent className="p-3 sm:p-6">
-              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
                 <MessageSquare className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
               </div>
               <div className="text-lg sm:text-2xl font-bold text-gray-900">{stats.questionsCount}</div>
@@ -111,7 +111,7 @@ export default function DashboardPage() {
 
           <Card className="text-center hover:shadow-lg transition-shadow">
             <CardContent className="p-3 sm:p-6">
-              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
                 <BookOpen className="h-4 w-4 sm:h-6 sm:w-6 text-green-600" />
               </div>
               <div className="text-lg sm:text-2xl font-bold text-gray-900">{stats.answersCount}</div>
@@ -121,7 +121,7 @@ export default function DashboardPage() {
 
           <Card className="text-center hover:shadow-lg transition-shadow">
             <CardContent className="p-3 sm:p-6">
-              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
                 <ThumbsUp className="h-4 w-4 sm:h-6 sm:w-6 text-purple-600" />
               </div>
               <div className="text-lg sm:text-2xl font-bold text-gray-900">{stats.totalVotes}</div>
@@ -131,7 +131,7 @@ export default function DashboardPage() {
 
           <Card className="text-center hover:shadow-lg transition-shadow">
             <CardContent className="p-3 sm:p-6">
-              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
                 <Trophy className="h-4 w-4 sm:h-6 sm:w-6 text-yellow-600" />
               </div>
               <div className="text-lg sm:text-2xl font-bold text-gray-900">{stats.reputation}</div>
@@ -151,7 +151,7 @@ export default function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
                 <MessageSquare className="h-5 w-5 text-blue-600" />
                 <div>
                   <p className="font-medium">Asked a question</p>
@@ -159,7 +159,7 @@ export default function DashboardPage() {
                   <p className="text-xs text-gray-500">2 hours ago</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-green-50 dark:bg-green-900/30 rounded-lg">
                 <ThumbsUp className="h-5 w-5 text-green-600" />
                 <div>
                   <p className="font-medium">Answer was upvoted</p>
@@ -195,7 +195,7 @@ export default function DashboardPage() {
               </Button>
               {isAdmin && (
                 <Button 
-                  className="w-full justify-start bg-red-50 hover:bg-red-100 text-red-700 border-red-200" 
+                  className="w-full justify-start bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800" 
                   variant="outline"
                   onClick={() => window.location.href = '/pages/admin'}
                 >
@@ -215,7 +215,7 @@ export default function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <Trophy className="h-6 w-6 text-yellow-600" />
                   <div>
@@ -225,7 +225,7 @@ export default function DashboardPage() {
                 </div>
                 <Badge variant="secondary">Earned</Badge>
               </div>
-              <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <Heart className="h-6 w-6 text-blue-600" />
                   <div>
@@ -244,11 +244,11 @@ export default function DashboardPage() {
               <CardTitle>Community Impact</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+              <div className="text-center p-4 bg-gradient-to-r from-blue-50 dark:from-blue-900/30 to-indigo-50 dark:to-indigo-900/30 rounded-lg">
                 <div className="text-2xl font-bold text-indigo-600 mb-1">156</div>
                 <div className="text-sm text-gray-600">People helped by your answers</div>
               </div>
-              <div className="text-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
+              <div className="text-center p-4 bg-gradient-to-r from-green-50 dark:from-green-900/30 to-emerald-50 dark:to-emerald-900/30 rounded-lg">
                 <div className="text-2xl font-bold text-green-600 mb-1">23</div>
                 <div className="text-sm text-gray-600">Solutions marked as accepted</div>
               </div>

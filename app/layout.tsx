@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/navbar'
 import Sidebar from '../components/sidebar'
 import Footer from '@/components/footer'
+import { ThemeProvider } from '@/lib/theme'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,7 +30,8 @@ export default function RootLayout({
           <link rel="preload" href="https://clerk.com/assets/clerk.js" as="script" />
         </head>
         <body className={inter.className}>
-          <div className="min-h-screen w-full relative bg-white flex flex-col">
+          <ThemeProvider>
+            <div className="min-h-screen w-full relative bg-background flex flex-col">
             {/* Orange Soft Glow */}
             <div
               className="absolute inset-0 z-0"
@@ -55,6 +57,7 @@ export default function RootLayout({
               <Footer />
             </div>
           </div>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

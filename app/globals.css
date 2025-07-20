@@ -93,6 +93,77 @@
   }
 }
 
+/* Homepage Cards Dark Mode Override */
+.homepage-card-1 {
+  background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 50%, #fbbf24 100%) !important;
+}
+
+.dark .homepage-card-1 {
+  background: linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #1e3a8a 100%) !important;
+  border-color: rgba(147, 51, 234, 0.6) !important;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3) !important;
+  color: white !important;
+}
+
+.dark .homepage-card-1:hover {
+  box-shadow: 0 0 30px rgba(147, 51, 234, 0.5) !important;
+}
+
+.dark .homepage-card-1 * {
+  color: white !important;
+}
+
+.homepage-card-2 {
+  background: linear-gradient(135deg, #fffbeb 0%, #fde68a 50%, #f59e0b 100%) !important;
+}
+
+.dark .homepage-card-2 {
+  background: linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #1e3a8a 100%) !important;
+  border-color: rgba(147, 51, 234, 0.6) !important;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3) !important;
+  color: white !important;
+}
+
+.dark .homepage-card-2:hover {
+  box-shadow: 0 0 30px rgba(147, 51, 234, 0.5) !important;
+}
+
+.dark .homepage-card-2 * {
+  color: white !important;
+}
+
+.homepage-card-3 {
+  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 50%, #f97316 100%) !important;
+}
+
+.dark .homepage-card-3 {
+  background: linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #1e3a8a 100%) !important;
+  border-color: rgba(147, 51, 234, 0.6) !important;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3) !important;
+  color: white !important;
+}
+
+.dark .homepage-card-3:hover {
+  box-shadow: 0 0 30px rgba(147, 51, 234, 0.5) !important;
+}
+
+.dark .homepage-card-3 * {
+  color: white !important;
+}
+
+.homepage-stats {
+  background: linear-gradient(135deg, #fef7ed 0%, #fbbf24 50%, #f59e0b 100%) !important;
+}
+
+.dark .homepage-stats {
+  background: linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #1e3a8a 100%) !important;
+  border-color: rgba(147, 51, 234, 0.6) !important;
+  box-shadow: 0 0 30px rgba(147, 51, 234, 0.4) !important;
+  color: white !important;
+}  .dark .homepage-stats * {
+    color: white !important;
+  }
+
 @layer components {
   /* Brand gradient - Darker Orange */
   .StackIt-gradient {
@@ -312,4 +383,104 @@
 
 .animate-pulse-color {
   animation: pulse-color 2s ease-in-out infinite;
+}
+
+/* Circuit Board Background Pattern for Dark Mode */
+.circuit-board-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 1;
+  pointer-events: none;
+  background: #0a0a0a;
+  background-image: 
+    /* Bright green main grid */
+    linear-gradient(rgba(0, 255, 0, 0.9) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0, 255, 0, 0.9) 2px, transparent 2px),
+    /* Cyan secondary grid */
+    linear-gradient(rgba(0, 255, 255, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.6) 1px, transparent 1px),
+    /* Bright connection nodes */
+    radial-gradient(circle at 25% 25%, rgba(0, 255, 0, 1) 3px, transparent 3px),
+    radial-gradient(circle at 75% 75%, rgba(0, 255, 255, 1) 3px, transparent 3px),
+    radial-gradient(circle at 25% 75%, rgba(255, 255, 0, 1) 2px, transparent 2px),
+    radial-gradient(circle at 75% 25%, rgba(255, 0, 255, 1) 2px, transparent 2px);
+  background-size: 
+    100px 100px,
+    100px 100px,
+    25px 25px,
+    25px 25px,
+    200px 200px,
+    200px 200px,
+    150px 150px,
+    150px 150px;
+  animation: circuit-glow 3s ease-in-out infinite;
+}
+
+@keyframes circuit-glow {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.5) saturate(1.2);
+  }
+}
+
+/* Glowing pulse animation for dark mode cards */
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 20px rgba(59, 130, 246, 0.4),
+      0 0 40px rgba(59, 130, 246, 0.2),
+      0 0 60px rgba(59, 130, 246, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 
+      0 0 30px rgba(59, 130, 246, 0.8),
+      0 0 60px rgba(59, 130, 246, 0.4),
+      0 0 90px rgba(59, 130, 246, 0.2);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Hide Clerk branding and footer elements */
+.cl-footer,
+.cl-footerAction,
+.cl-footerActionText,
+.cl-footerActionLink,
+.cl-internal-b3fm6y,
+.cl-branded,
+[data-localization-key="signIn.alternativeMethods.blockButton__emailLink"],
+[data-localization-key="signUp.alternativeMethods.blockButton__emailLink"],
+[data-localization-key="signIn.start.actionText"],
+[data-localization-key="signUp.start.actionText"],
+[data-localization-key="footerActionLink__signIn"],
+[data-localization-key="footerActionLink__signUp"] {
+  display: none !important;
+}
+
+/* Hide "Secured by Clerk" */
+.cl-internal-b3fm6y,
+.cl-branded,
+.cl-footer .cl-footerAction,
+.cl-footer .cl-footerActionText,
+div[data-localization-key*="secured"] {
+  display: none !important;
+}
+
+/* Hide footer links */
+.cl-footer,
+.cl-footerPages,
+.cl-footerAction {
+  display: none !important;
 }
