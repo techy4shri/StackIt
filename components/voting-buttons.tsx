@@ -47,12 +47,12 @@ export default function VotingButtons({
         size="sm"
         className={cn(
           sizeClasses[size],
-          'p-0 transition-colors',
+          'p-0 transition-colors border-2',
           voteState.voteType === 'up' 
-            ? 'bg-green-100 text-green-700 hover:bg-green-100 cursor-default' 
+            ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 hover:bg-orange-100 dark:hover:bg-orange-900/30 cursor-default border-orange-500 dark:border-orange-400' 
             : voteState.hasVoted 
-              ? 'opacity-50 cursor-not-allowed hover:bg-transparent' 
-              : 'hover:bg-green-50 hover:text-green-600'
+              ? 'opacity-50 cursor-not-allowed hover:bg-transparent border-gray-300 dark:border-gray-600' 
+              : 'hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 text-orange-600 dark:text-orange-400 border-orange-400 dark:border-orange-500'
         )}
         onClick={() => vote('up')}
         disabled={!canVote || loading || voteState.hasVoted}
@@ -66,10 +66,10 @@ export default function VotingButtons({
       </Button>
       
       <span className={cn(
-        'font-bold text-foreground min-w-[2rem] text-center',
+        'font-bold text-foreground dark:text-gray-100 min-w-[2rem] text-center',
         voteSizes[size],
-        voteState.voteType === 'up' && 'text-green-700',
-        voteState.voteType === 'down' && 'text-red-700'
+        voteState.voteType === 'up' && 'text-orange-700 dark:text-orange-400',
+        voteState.voteType === 'down' && 'text-red-700 dark:text-red-400'
       )}>
         {voteState.votes}
       </span>
@@ -79,12 +79,12 @@ export default function VotingButtons({
         size="sm"
         className={cn(
           sizeClasses[size],
-          'p-0 transition-colors',
+          'p-0 transition-colors border-2',
           voteState.voteType === 'down' 
-            ? 'bg-red-100 text-red-700 hover:bg-red-100 cursor-default' 
+            ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 cursor-default border-red-500 dark:border-red-400' 
             : voteState.hasVoted 
-              ? 'opacity-50 cursor-not-allowed hover:bg-transparent' 
-              : 'hover:bg-red-50 hover:text-red-600'
+              ? 'opacity-50 cursor-not-allowed hover:bg-transparent border-gray-300 dark:border-gray-600' 
+              : 'hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 text-red-600 dark:text-red-400 border-red-400 dark:border-red-500'
         )}
         onClick={() => vote('down')}
         disabled={!canVote || loading || voteState.hasVoted}
@@ -100,7 +100,7 @@ export default function VotingButtons({
       {!canVote && (
         <button 
           onClick={() => vote('up')} 
-          className="text-xs text-blue-600 hover:text-blue-800 underline mt-1 cursor-pointer"
+          className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline mt-1 cursor-pointer"
         >
           Sign in to vote
         </button>

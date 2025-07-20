@@ -177,34 +177,34 @@ function QuestionsContent() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <Card className="stats-card card-glow">
+        <Card className="stats-card card-glow bg-gradient-to-b from-orange-50 to-orange-100/20 dark:from-orange-900/40 dark:to-orange-800/30 border-orange-200 dark:border-orange-700">
           <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">{questions.length}</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">questions</div>
+            <div className="text-xl sm:text-2xl font-bold text-orange-700 dark:text-orange-300">{questions.length}</div>
+            <div className="text-xs sm:text-sm text-orange-600 dark:text-orange-400">questions</div>
           </CardContent>
         </Card>
-        <Card className="stats-card card-glow">
+        <Card className="stats-card card-glow bg-gradient-to-b from-red-50 to-red-100/20 dark:from-red-900/40 dark:to-red-800/30 border-red-200 dark:border-red-700">
           <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">
+            <div className="text-xl sm:text-2xl font-bold text-red-700 dark:text-red-300">
               {questions.reduce((total, q) => total + (q.answers?.length || 0), 0)}
             </div>
-            <div className="text-xs sm:text-sm text-muted-foreground">answers</div>
+            <div className="text-xs sm:text-sm text-red-600 dark:text-red-400">answers</div>
           </CardContent>
         </Card>
-        <Card className="stats-card card-glow">
+        <Card className="stats-card card-glow bg-gradient-to-b from-amber-50 to-amber-100/20 dark:from-amber-900/40 dark:to-amber-800/30 border-amber-200 dark:border-amber-700">
           <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">
+            <div className="text-xl sm:text-2xl font-bold text-amber-700 dark:text-amber-300">
               {questions.filter(q => !q.answers || q.answers.length === 0).length}
             </div>
-            <div className="text-xs sm:text-sm text-muted-foreground">unanswered</div>
+            <div className="text-xs sm:text-sm text-amber-600 dark:text-amber-400">unanswered</div>
           </CardContent>
         </Card>
-        <Card className="stats-card card-glow">
+        <Card className="stats-card card-glow bg-gradient-to-b from-rose-50 to-rose-100/20 dark:from-rose-900/40 dark:to-rose-800/30 border-rose-200 dark:border-rose-700">
           <CardContent className="p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-2xl font-bold text-foreground">
+            <div className="text-xl sm:text-2xl font-bold text-rose-700 dark:text-rose-300">
               {questions.reduce((total, q) => total + q.votes, 0)}
             </div>
-            <div className="text-xs sm:text-sm text-muted-foreground">total votes</div>
+            <div className="text-xs sm:text-sm text-rose-600 dark:text-rose-400">total votes</div>
           </CardContent>
         </Card>
       </div>

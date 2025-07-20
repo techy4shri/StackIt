@@ -33,7 +33,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
   const answerCount = Array.isArray(question.answers) ? question.answers.length : (question.answers || 0)
 
   return (
-    <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary w-full" style={{ backgroundColor: '#fbfbfa' }}>
+    <Card className="question-card-hover card-glow border-l-4 border-l-transparent hover:border-l-primary w-full bg-background dark:bg-gray-800 border-border dark:border-gray-700">
       <CardContent className="p-3 sm:p-4 lg:p-6">
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
           {/* Mobile: Stats and Voting Row */}
@@ -48,12 +48,12 @@ export default function QuestionCard({ question }: QuestionCardProps) {
             </div>
             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center space-x-1">
-                <span className="font-bold text-green-700">{answerCount}</span>
-                <span className="text-xs text-green-600">answers</span>
+                <span className="font-bold text-orange-700 dark:text-orange-300">{answerCount}</span>
+                <span className="text-xs text-orange-600 dark:text-orange-400">answers</span>
               </div>
               <div className="flex items-center space-x-1">
-                <span className="font-bold text-blue-700">{question.views || 0}</span>
-                <span className="text-xs text-blue-600">views</span>
+                <span className="font-bold text-red-700 dark:text-red-300">{question.views || 0}</span>
+                <span className="text-xs text-red-600 dark:text-red-400">views</span>
               </div>
             </div>
           </div>
@@ -70,13 +70,13 @@ export default function QuestionCard({ question }: QuestionCardProps) {
 
           {/* Desktop: Stats Column */}
           <div className="hidden sm:flex flex-col items-center space-y-3 text-sm text-muted-foreground min-w-[80px]">
-            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-green-50 to-green-100/20">
-              <span className="font-bold text-base lg:text-lg text-green-700">{answerCount}</span>
-              <span className="text-xs font-medium text-green-600">answers</span>
+            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-orange-50 to-orange-100/20 dark:from-orange-900/40 dark:to-orange-800/30 border border-orange-200 dark:border-orange-700">
+              <span className="font-bold text-base lg:text-lg text-orange-700 dark:text-orange-300">{answerCount}</span>
+              <span className="text-xs font-medium text-orange-600 dark:text-orange-400">answers</span>
             </div>
-            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-blue-50 to-blue-100/20">
-              <span className="font-bold text-base lg:text-lg text-blue-700">{question.views || 0}</span>
-              <span className="text-xs font-medium text-blue-600">views</span>
+            <div className="flex flex-col items-center p-2 rounded-lg bg-gradient-to-b from-red-50 to-red-100/20 dark:from-red-900/40 dark:to-red-800/30 border border-red-200 dark:border-red-700">
+              <span className="font-bold text-base lg:text-lg text-red-700 dark:text-red-300">{question.views || 0}</span>
+              <span className="text-xs font-medium text-red-600 dark:text-red-400">views</span>
             </div>
           </div>
 
@@ -85,14 +85,14 @@ export default function QuestionCard({ question }: QuestionCardProps) {
             {/* Title */}
             <Link 
               href={`/question/${question._id}`}
-              className="text-base sm:text-lg font-medium text-foreground hover:text-primary transition-colors line-clamp-2 block"
+              className="text-base sm:text-lg font-medium text-foreground dark:text-gray-100 hover:text-primary dark:hover:text-orange-400 transition-colors line-clamp-2 block"
             >
               {question.title}
             </Link>
             
             {/* Description Preview */}
             <div 
-              className="text-sm text-muted-foreground line-clamp-2"
+              className="text-sm text-muted-foreground dark:text-gray-300 line-clamp-2"
               dangerouslySetInnerHTML={{ 
                 __html: question.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...' || ''
               }}

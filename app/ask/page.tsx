@@ -27,10 +27,10 @@ export default function AskQuestionPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400 mx-auto"></div>
+          <p className="mt-2 text-gray-600 dark:text-gray-300">Loading...</p>
         </div>
       </div>
     )
@@ -90,8 +90,8 @@ export default function AskQuestionPage() {
         </p>
       </div>
       
-      <Card className="card-glow shadow-xl">
-        <CardHeader className="bg-gradient-to-r from-orange-50 to-amber-50 border-b">
+      <Card className="card-glow shadow-xl bg-background dark:bg-gray-800 border-border dark:border-gray-700">
+        <CardHeader className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 border-b border-border dark:border-gray-700">
           <CardTitle className="text-xl flex items-center gap-2">
             <div className="StackIt-gradient h-8 w-8 rounded-lg flex items-center justify-center text-white font-bold text-sm">
               ?
@@ -176,10 +176,10 @@ export default function AskQuestionPage() {
       </Card>
       
       {/* Help sidebar */}
-      <Card className="mt-8 bg-blue-50/50 border-blue-200">
+      <Card className="mt-8 bg-blue-50/50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800">
         <CardContent className="p-6">
-          <h3 className="font-semibold text-blue-900 mb-3">💡 Tips for getting answers</h3>
-          <ul className="space-y-2 text-sm text-blue-800">
+          <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-3">💡 Tips for getting answers</h3>
+          <ul className="space-y-2 text-sm text-blue-800 dark:text-blue-300">
             <li>• Search for similar questions before posting</li>
             <li>• Provide a minimal, reproducible example</li>
             <li>• Include relevant error messages</li>
